@@ -22,6 +22,10 @@ jobs :
             - name : Install Node.js dependencies
               run : npm install
 
+            - name : Execute exit 1 for failure testing
+              if: failure()
+              run: exit 1
+
             - name : Print on Success
               if : ${{ success() }}
               run : echo "The workflow run was successfull."

@@ -23,7 +23,6 @@ jobs :
               run : npm install
 
             - name : Execute exit 1 for failure testing
-              if: failure()
               run: exit 1
 
             - name : Print on Success

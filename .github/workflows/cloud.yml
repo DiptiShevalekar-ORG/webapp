@@ -22,6 +22,28 @@ jobs :
             - name : Install Node.js dependencies
               run : npm install
 
+            - name: Install MySQL client
+              run: |
+                sudo apt-get update
+                sudo apt-get install mysql-client
+
+            - name: Create Database
+              env:
+                  HOST: ${{ secrets.HOST }}
+                  DB_USER: ${{ secrets.DB_USER }}
+                  PASSWORD: ${{ secrets.PASSWORD }}
+                  DATABASE: ${{ secrets.DATABASE }}
+              run: |
+                  mysql -h $HOST -u $DB_USER -p$PASSWORD -e "CREATE DATABASE IF NOT EXISTS $DATABASE;"
+        
+            - name: Run Integration Test
+              env:
+                HOST: ${{ secrets.HOST }}
+                DB_USER: ${{ secrets.DB_USER }}
+                PASSWORD: ${{ secrets.PASSWORD }}
+                DATABASE: ${{ secrets.DATABASE }}
+              run: npm test
+          
             - name : Execute exit 1 for failure testing
               if: failure()
               run: exit 1

@@ -43,6 +43,7 @@ jobs :
                 DB_USER: ${{ secrets.DB_USERNAME }}
                 PASSWORD: ${{ secrets.PASSWORD }}
                 DATABASE: ${{ secrets.DATABASE }}
+                PORT : ${{ secrets.PORT }}
               run: |
                 cd Dipti_Shevalekar_002245703_01
                 npm test

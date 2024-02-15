@@ -20,7 +20,9 @@ jobs :
                 node-version : '14'
             
             - name : Install Node.js dependencies
-              run : npm install
+              run : |
+               cd Dipti_Shevalekar_002245703_01
+               npm install
 
             - name: Install MySQL client
               run: |

@@ -27,6 +27,8 @@ jobs :
                 sudo apt-get update
                 sudo apt-get install mysql-server
                 sudo apt-get install mysql-client
+                sudo systemctl status mysql
+
                 
 
             - name: Create Database

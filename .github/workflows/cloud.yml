@@ -40,7 +40,7 @@ jobs :
             - name: Run Integration Test
               env:
                 HOST: ${{ secrets.HOST }}
-                DB_USER: ${{ secrets.DB_USERNAME }}
+                DB_USERNAME: ${{ secrets.DB_USERNAME }}
                 PASSWORD: ${{ secrets.PASSWORD }}
                 DATABASE: ${{ secrets.DATABASE }}
                 PORT : ${{ secrets.PORT }}

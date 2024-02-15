@@ -29,20 +29,20 @@ jobs :
 
             - name: Create Database
               run: |
-                  mysql -u${{ secrets.DB_USER }} -p${{ secrets.PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ${{ secrets.DATABASE }};"
-                  mysql -u${{ secrets.DB_USER }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
+                  mysql -u${{ secrets.DB_USERNAME }} -p${{ secrets.PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ${{ secrets.DATABASE }};"
+                  mysql -u${{ secrets.DB_USERNAME }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
         
             - name: Run Integration Test
               env:
                 HOST: ${{ secrets.HOST }}
-                DB_USER: ${{ secrets.DB_USER }}
+                DB_USER: ${{ secrets.DB_USERNAME }}
                 PASSWORD: ${{ secrets.PASSWORD }}
                 DATABASE: ${{ secrets.DATABASE }}
               run: npm test
 
             - name : Delete the created Database each time
               run : | 
-                mysql -u${{ secrets.DB_USER }} -p${{ secrets.PASSWORD }} -e "DROP DATABASE ${{ secrets.DATABASE }}"
+                mysql -u${{ secrets.DB_USERNAME }} -p${{ secrets.PASSWORD }} -e "DROP DATABASE ${{ secrets.DATABASE }}"
           
             - name : Execute exit 1 for failure testing
               if: failure()

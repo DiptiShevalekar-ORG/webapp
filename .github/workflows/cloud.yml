@@ -26,6 +26,9 @@ jobs :
               run: |
                 sudo apt-get update
                 sudo apt-get install mysql-client
+               
+            - name: Check MySQL server status
+              run: systemctl is-active mysql
 
             - name: Create Database
               run: |

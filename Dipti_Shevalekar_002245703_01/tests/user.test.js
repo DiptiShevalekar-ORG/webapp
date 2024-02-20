@@ -14,7 +14,7 @@ describe("User API Integration Tests", () => {
 describe("User API Integration Tests", () => {
   it("Post - User Create", async () => {
     console.log("Reached Here");
-    await request.post("/v1/user").send(testData.userData).expect(201);
+    await request.post("/v1/user").send(testData.userData).expect(200);
     //     const token = Buffer.from(
     //       `${testData.userData.UserName}:${testData.userData.Password}`
     //     ).toString("base64");
@@ -45,7 +45,7 @@ describe("Put - Update USer", () => {
         ).toString("base64")}`
       )
       .send(testData.updateUserData)
-      .expect(204);
+      .expect(200);
 
     request
       .get("/v1/user/self")

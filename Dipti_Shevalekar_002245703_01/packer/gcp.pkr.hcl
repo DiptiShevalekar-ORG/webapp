@@ -49,11 +49,11 @@ build {
     destination = "/tmp/webapp.zip"
   }
 
-#  provisioner "shell" {
-#     scripts = [
-#      "unzipAndSystemd.sh"
-#     ]
-#   }
+ provisioner "shell" {
+    scripts = [
+     "unzipAndSystemd.sh"
+    ]
+  }
 
 }
 

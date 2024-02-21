@@ -38,7 +38,7 @@ build {
   sources = ["googlecompute.Assignment04"]
   provisioner "shell" {
      scripts = [
-    "installmysql.sh",
+     "installmysql.sh",
      "installNode.sh",
      "unzipInstall.sh"
     ]

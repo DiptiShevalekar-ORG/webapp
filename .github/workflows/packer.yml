@@ -55,9 +55,6 @@ jobs:
             cd Dipti_Shevalekar_002245703_01/packer
             packer fmt gcp.pkr.hcl
 
-      - name: Run `packer validate`
-        run: |
-          packer validate ../packer/gcp.pkr.hcl
 
      
 

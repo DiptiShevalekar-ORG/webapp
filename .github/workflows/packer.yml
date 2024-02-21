@@ -43,13 +43,11 @@ jobs:
              cd Dipti_Shevalekar_002245703_01
              zip -qq -r ../webapp/webapp.zip .
          
-  
       - name: Setup Packer
         uses: hashicorp/setup-packer@main
         id: setup
         with:
           version: "latest"
-
 
       - name: Run `packer init`
         run: |

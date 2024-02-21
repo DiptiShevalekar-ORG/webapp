@@ -42,8 +42,4 @@ jobs:
 
              - name: create a zip of the repo
                run : 
-                zip -r webapp.zip Dipti_Shevalekar_002245703_01
-
-
-
-             
+                zip -r webapp.zip ../webapp

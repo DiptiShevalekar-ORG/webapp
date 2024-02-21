@@ -23,6 +23,8 @@ jobs:
 
              - name: Packer init for trial
                run: |
+                 pwd
+                 ls
                  cd Dipti_Shevalekar_002245703_01/packer
                  packer init gcp.pkr.hcl
        

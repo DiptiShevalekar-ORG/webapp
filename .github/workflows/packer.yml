@@ -53,7 +53,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: webapp-zip
-          path: /home/runner/work/webapp
+          path: /home/runner/work/webapp/webapp
     
 
       - name: Setup Packer

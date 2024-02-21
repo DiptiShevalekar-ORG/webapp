@@ -42,3 +42,15 @@ send "y\r"
 
 expect eof
 EOF
+
+sudo systemctl restart mysqld 
+sleep 10
+
+
+  HOST="localhost"
+  DB_USERNAME="root"
+  PASSWORD="Cloud@123"
+  DATABASE="trial_db"
+  PORT=3002
+
+mysql --user="$DB_USERNAME" --execute="CREATE DATABASE "$DATABASE"; use "$DATABASE";

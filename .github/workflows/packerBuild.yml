@@ -44,3 +44,8 @@ jobs:
                with:
                     args: zip -qq -r webapp.zip Dipti_Shevalekar_002245703_01
           
+             - name: Upload artifact
+               uses: actions/upload-artifact@v2
+               with:
+                      name: webapp-zip
+                      path: webapp.zip

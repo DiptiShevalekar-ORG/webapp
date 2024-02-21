@@ -1,0 +1,14 @@
+[Unit]
+Description=Webapp setup on VM
+After=network.target
+
+[Service]
+Type=simple
+User=csye6225
+Group=csye6225
+ExecStart=/tmp/application
+WorkingDirectory=/tmp/application
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

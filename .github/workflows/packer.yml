@@ -36,12 +36,12 @@ jobs:
            mysql -u${{ secrets.DB_USERNAME }} -p${{ secrets.PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ${{ secrets.DATABASE }};"
            mysql -u${{ secrets.DB_USERNAME }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
        
-
-
+      - name: Create webapp directory
+        run: mkdir -p ../newfolder
+         
       - name: Create zip file
-        run: |
-             cd Dipti_Shevalekar_002245703_01
-             zip -qq -r ../webapp/webapp.zip .
+        run: zip -qq -r ../newfolder .
+         
          
       - name: Setup Packer
         uses: hashicorp/setup-packer@main

@@ -49,3 +49,13 @@ jobs:
                with:
                       name: webapp-zip
                       path: webapp.zip
+
+
+             - name: Create Image
+               run: |
+                cd Dipti_Shevalekar_002245703_01
+                packer build gcp.pkr.hcl
+
+             - name: Success message
+               if : ${{ success() }}
+               run : echo "The workflow run was successfull." 

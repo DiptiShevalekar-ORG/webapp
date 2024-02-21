@@ -41,13 +41,13 @@ jobs:
 
              - name: create a zip of the repo
                run : |
-                  cd ../ 
+                  cd ../webapp
                   rm -rf webapp.zip
-                  zip -r webapp.zip webapp -x ".git/*" ".github/*"
+                  zip -r webapp.zip Dipti_Shevalekar_002245703_01 -x ".git/*" ".github/*"
             
              - name: upload
                uses: actions/upload-artifact@v2
                with:
                   name: webapp-zip
-                  path: webapp.zip
+                  path: ../webapp
               

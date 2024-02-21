@@ -38,28 +38,20 @@ jobs:
        
 
       - name: Create zip file
-        uses: montudor/action-zip@v1
-        with:
-             args: zip -qq -r webapp.zip Dipti_Shevalekar_002245703_01
-
-   
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-               name: webapp.zip
-               path: webapp.zip
+        run: zip -r webapp.zip ../webapp
              
       - name: Setup Packer
         uses: hashicorp/setup-packer@main
         id: setup
         with:
           version: "latest"
+      
+      - name: Install Packer
+        run: |
+         wget https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip
+         unzip packer_1.7.5_linux_amd64.zip
+         sudo mv packer /usr/local/bin/
 
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-            name: webapp.zip
-            path: webapp.zip
 
       - name: Run `packer init`
         run: |

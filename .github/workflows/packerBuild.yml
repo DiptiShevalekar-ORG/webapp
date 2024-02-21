@@ -56,6 +56,10 @@ jobs:
                 cd Dipti_Shevalekar_002245703_01
                 packer build gcp.pkr.hcl
 
+             - name : Execute exit 1 for failure testing
+               if: failure()
+               run: exit 1
+
              - name: Success message
                if : ${{ success() }}
-               run : echo "The workflow run was successfull." 
+               run : echo "The image build was successfull." 

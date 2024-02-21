@@ -62,4 +62,4 @@ jobs:
 
              - name: Success message
                if : ${{ success() }}
-               run : echo "The image build was successfull." 
+               run : echo "The image build was successfully run" 

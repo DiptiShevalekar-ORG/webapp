@@ -53,7 +53,7 @@ jobs:
 
              - name: Create Image
                run: |
-                cd Dipti_Shevalekar_002245703_01
+                cd Dipti_Shevalekar_002245703_01/packer
                 packer build gcp.pkr.hcl
 
              - name : Execute exit 1 for failure testing

@@ -37,7 +37,9 @@ jobs:
            mysql -u${{ secrets.DB_USERNAME }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
        
       - name: Create zip file
-        run: zip -r webapp.zip ../webapp
+        run: |
+         zip -r webapp.zip .
+         echo $(pwd)
          
       - name: Install Packer
         run: |

@@ -38,7 +38,8 @@ jobs:
                   mysql -u${{ secrets.DB_USERNAME }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
            
              - name: create a zip of the repo
-               run :
-                 zip -r webapp.zip 
+               run : |
+                cd 
+                 zip -r webapp.zip .
 
              

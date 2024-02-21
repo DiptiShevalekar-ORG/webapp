@@ -47,13 +47,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
                name: webapp-zip
-               path: webapp.zip
+               path: /home/runner/work/webapp
       
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
           name: webapp-zip
-          path: /home/runner/work/webapp/webapp
+          path: /home/runner/work/webapp
           
       - name: Setup Packer
         uses: hashicorp/setup-packer@main

@@ -54,9 +54,14 @@ jobs:
                       path: webapp.zip
 
              - name: Authenticate with GCP
-               uses: google-github-actions/auth@v0
+               uses: google-github-actions/auth@v2
                with:
                        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+             - name: Packer init for trial
+               run: |
+                 cd Dipti_Shevalekar_002245703_01/packer
+                 packer init gcp.pkr.hcl
        
              - name: build packer
                run: |

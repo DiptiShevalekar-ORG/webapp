@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
                name: webapp.zip
-               path: ${{ github.workspace }}/webapp
+               path: webapp.zip
              
       - name: Setup Packer
         uses: hashicorp/setup-packer@main
@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
             name: webapp.zip
-            path: ${{ github.workspace }}/webapp
+            path: webapp.zip
 
       - name: Run `packer init`
         run: |

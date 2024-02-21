@@ -2,7 +2,6 @@ name: CI for Image Build
 
 on:
   pull_request:
-    types: [closed]
     branches:
       - main
 jobs:
@@ -43,3 +42,10 @@ jobs:
              - name: create a zip of the repo
                run : 
                 zip -r webapp.zip ../webapp
+            
+             - name: upload
+               uses: actions/upload-artifact@v2
+               with:
+                  name: webapp-zip
+                  path: webapp.zip
+              

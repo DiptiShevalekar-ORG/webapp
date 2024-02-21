@@ -48,18 +48,18 @@ jobs:
         with:
                name: webapp-zip
                path: webapp-zip
-      
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: webapp-zip
-          path: webapp-zip
-          
+             
       - name: Setup Packer
         uses: hashicorp/setup-packer@main
         id: setup
         with:
           version: "latest"
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+            name: webapp-zip
+            path: webapp-zip
 
       - name: Run `packer init`
         run: |

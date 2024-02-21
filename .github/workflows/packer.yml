@@ -57,7 +57,7 @@ jobs:
 
       - name: Run `packer validate`
         run: |
-          packer validate gcp.pkr.hcl
+          packer validate packer/gcp.pkr.hcl
 
      
 

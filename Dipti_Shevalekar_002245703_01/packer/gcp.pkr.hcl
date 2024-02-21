@@ -16,7 +16,7 @@ variable "gcp_project_zone" {
 }
 
 variable "gcp_ssh_username" {
-  default = "csye6225"
+  default = "packer"
 }
 
 variable "the_source_image" {
@@ -41,18 +41,20 @@ build {
      "installmysql.sh",
      "installNode.sh",
      "unzipInstall.sh"
+
     ]
   }
    provisioner "file" {
     source      = "/home/runner/work/webapp/webapp/webapp.zip"
-    destination = "~/webapp.zip"
+    destination = "/tmp/webapp.zip"
   }
 
-#  provisioner "shell" {
-#     inline = [
-#       "unzip /tmp/webapp-FORK.zip -d /tmp/"
-#     ]
-#   }
+ provisioner "shell" {
+    scripts = [
+     "unzipAndSystemd.sh"
+     
+    ]
+  }
 
 }
 

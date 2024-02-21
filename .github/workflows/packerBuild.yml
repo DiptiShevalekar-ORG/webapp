@@ -16,43 +16,6 @@ jobs:
              - name: Checkout Repository
                uses: actions/checkout@v2
 
-
-             - name : Use Node.js Dependencies
-               uses : actions/setup-node@v3
-               with :
-                 node-version : '14'
-            
-             - name : Install Node.js dependencies
-               run : |
-                cd Dipti_Shevalekar_002245703_01
-                npm install
-
-             - name: Install MySQL client
-               run: |
-                sudo apt-get update
-                sudo apt-get install mysql-server
-                sudo apt-get install mysql-client
-                sudo systemctl start mysql
-                sudo systemctl status mysql
-
-             - name: Create Database
-               run: |
-                  mysql -u${{ secrets.DB_USERNAME }} -p${{ secrets.PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ${{ secrets.DATABASE }};"
-                  mysql -u${{ secrets.DB_USERNAME }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
-              
-
-             - name: Create zip file
-               uses: montudor/action-zip@v1
-               with:
-                    args: zip -qq -r webapp.zip Dipti_Shevalekar_002245703_01
-
-          
-             - name: Upload artifact
-               uses: actions/upload-artifact@v2
-               with:
-                      name: webapp-zip
-                      path: webapp.zip
-
              - name: Authenticate with GCP
                uses: google-github-actions/auth@v2
                with:

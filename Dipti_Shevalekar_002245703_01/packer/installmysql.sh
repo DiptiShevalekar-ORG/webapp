@@ -37,7 +37,7 @@ send "y\r"
 expect "Remove test database and access to it?"
 send "y\r"
 
-expect "Reload privilege tables now?"
+expect "Reload privilege tables now? (Press y|Y for Yes, any other key for No) :"
 send "y\r"
 
 expect eof
@@ -46,11 +46,10 @@ EOF
 sudo systemctl restart mysqld 
 sleep 10
 
+HOST="localhost"
+DB_USERNAME="root"
+PASSWORD="Cloud@123"
+DATABASE="trial_db"
+PORT=3002
 
-  HOST="localhost"
-  DB_USERNAME="root"
-  PASSWORD="Cloud@123"
-  DATABASE="trial_db"
-  PORT=3002
-
-mysql --user="$DB_USERNAME" --execute="CREATE DATABASE "$DATABASE"; use "$DATABASE";
+mysql --user="$DB_USERNAME" --password="$PASSWORD" --host="$HOST" --port="$PORT" --execute="CREATE DATABASE IF NOT EXISTS $DATABASE;"

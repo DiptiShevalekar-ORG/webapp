@@ -43,16 +43,16 @@ build {
      "unzipInstall.sh"
     ]
   }
-   provisioner "file" {
-    source      = "../../webapp-FORK.zip"
-    destination = "/tmp/webapp-FORK.zip"
-  }
+  #  provisioner "file" {
+  #   source      = "../../webapp-FORK.zip"
+  #   destination = "/tmp/webapp-FORK.zip"
+  # }
 
- provisioner "shell" {
-    inline = [
-      "unzip /tmp/webapp-FORK.zip -d /tmp/"
-    ]
-  }
+#  provisioner "shell" {
+#     inline = [
+#       "unzip /tmp/webapp-FORK.zip -d /tmp/"
+#     ]
+#   }
 
 }
 

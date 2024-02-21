@@ -2,8 +2,9 @@ name: CI for Image Build
 
 on:
   pull_request:
+    types: [closed]
     branches:
-      - main
+          - main
 jobs:
   
     build:
@@ -50,4 +51,14 @@ jobs:
                with:
                       name: webapp-zip
                       path: webapp.zip
+
+             - name: Authenticate with GCP
+               uses: google-github-actions/auth@v0
+               with:
+                       credentials_json: ${{ secrets.GCP_SA_KEY }}
+       
+             - name: build packer
+               run: 
+                       cd Dipti_Shevalekar_002245703_01/packer
+                       packer build gcp.pkr.hcl
 

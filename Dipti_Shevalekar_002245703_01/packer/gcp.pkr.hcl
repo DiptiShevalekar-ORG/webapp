@@ -52,7 +52,6 @@ build {
  provisioner "shell" {
     scripts = [
      "unzipAndSystemd.sh"
-     
     ]
   }
 

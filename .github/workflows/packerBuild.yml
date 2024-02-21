@@ -40,8 +40,10 @@ jobs:
               
 
              - name: create a zip of the repo
-               run : 
-                zip -r webapp.zip ../webapp
+               run : |
+                  cd ../ 
+                  rm -rf <webapp>.zip
+                  zip -r <webapp>.zip <webapp> -x ".git/*" ".github/*"
             
              - name: upload
                uses: actions/upload-artifact@v2

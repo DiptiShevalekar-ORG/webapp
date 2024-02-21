@@ -3,10 +3,9 @@ name: CI for Image Build
 on:
   pull_request:
     types: [closed]
-    types: [closed]
     branches:
           - main
-          - main
+          
 jobs:
   
     build:

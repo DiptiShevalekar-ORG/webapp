@@ -1,3 +1,5 @@
+#!/bin/bash
+
 MYSQL_ROOT_PASSWORD="Cloud@123"
 
 sudo dnf install -y expect

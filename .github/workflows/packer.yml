@@ -40,6 +40,16 @@ jobs:
         run: |
          zip -r webapp.zip .
          echo $(pwd)
+
+      - name: Create env file
+        run: |
+            touch .env
+            echo "PORT=3002" >> .env
+            echo "DB_NAME=trial_db" >> .env
+            echo "DB_USERNAME=root" >> .env
+            echo "DB_PASSWORD=Cloud@123" >> .env
+            echo "DB_HOST=localhost" >> .env
+            
          
       - name: Install Packer
         run: |
@@ -49,18 +59,18 @@ jobs:
 
       - name: Run `packer init`
         run: |
-          cd Dipti_Shevalekar_002245703_01/packer
-          packer init gcp.pkr.hcl
+          cd Dipti_Shevalekar_002245703_01
+          packer init packer
 
       - name: Run 'packer fmt'
         run: |
-            cd Dipti_Shevalekar_002245703_01/packer
-            packer fmt gcp.pkr.hcl
+            cd Dipti_Shevalekar_002245703_01
+            packer fmt packer
       
       - name: Run validate
         run: | 
-         cd Dipti_Shevalekar_002245703_01/packer
-         packer validate gcp.pkr.hcl
+         cd Dipti_Shevalekar_002245703_01
+         packer validate packer
 
      
 

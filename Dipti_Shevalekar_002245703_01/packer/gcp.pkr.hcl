@@ -7,22 +7,6 @@ packer {
   }
 }
 
-variable "gcp_project_id" {
-  default = "cloudassignment03-413923"
-}
-
-variable "gcp_project_zone" {
-  default = "us-east1-b"
-}
-
-variable "gcp_ssh_username" {
-  default = "packer"
-}
-
-variable "the_source_image" {
-  default = "centos-stream-8-v20240110"
-}
-
 source "googlecompute" "Assignment04" {
   project_id   = var.gcp_project_id
   source_image = var.the_source_image
@@ -33,25 +17,30 @@ source "googlecompute" "Assignment04" {
   #   ssh_agent_auth      = true
   #   ssh_private_key_file = "/Users/dshev/.ssh/gcp_key.pub"
 }
-  
+
 build {
   sources = ["googlecompute.Assignment04"]
   provisioner "shell" {
-     scripts = [
-     "installmysql.sh",
-     "installNode.sh",
-     "unzipInstall.sh"
+    scripts = [
+      "packer/installmysql.sh",
+      "packer/installNode.sh",
+      "packer/unzipInstall.sh"
 
     ]
   }
-   provisioner "file" {
+  provisioner "file" {
     source      = "/home/runner/work/webapp/webapp/webapp.zip"
     destination = "/tmp/webapp.zip"
   }
 
- provisioner "shell" {
+  provisioner "file" {
+    source      = "/home/runner/work/webapp/webapp/.env"
+    destination = "/tmp/.env"
+  }
+
+  provisioner "shell" {
     scripts = [
-     "unzipAndSystemd.sh"
+      "packer/unzipAndSystemd.sh"
     ]
   }
 

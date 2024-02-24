@@ -20,6 +20,7 @@ source "googlecompute" "Assignment04" {
 
 build {
   sources = ["googlecompute.Assignment04"]
+  image_name = "cloud-packer-vm-custom-image"
   provisioner "shell" {
     scripts = [
       "packer/installmysql.sh",

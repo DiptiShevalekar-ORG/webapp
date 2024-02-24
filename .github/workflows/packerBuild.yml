@@ -26,10 +26,10 @@ jobs:
                run: |
                 touch .env
                 echo "PORT=8080" >> .env
-                echo "DB_NAME=trial_db" >> .env
+                echo "DATABASE=trial_db" >> .env
                 echo "DB_USERNAME=root" >> .env
-                echo "DB_PASSWORD=Cloud@123" >> .env
-                echo "DB_HOST=localhost" >> .env
+                echo "PASSWORD=Cloud@123" >> .env
+                echo "HOST=localhost" >> .env
           
 
              - name: Install Packer

@@ -27,7 +27,7 @@ build {
  
   provisioner "shell" {
     scripts = [
-      installmysql.sh,
+      "packer/installmysql.sh",
       "packer/installNode.sh",
       "packer/unzipInstall.sh"
 
@@ -35,7 +35,7 @@ build {
   }
   provisioner "file" {
     source      = "/home/runner/work/webapp/webapp/webapp.zip"
-    destination = /tmp/webapp.zip
+    destination = "/tmp/webapp.zip"
   }
 
   provisioner "file" {

@@ -25,3 +25,9 @@ This project implements a user management API using Express.js and Sequelize ORM
 
 - Once  node_modules is installed. create a .env file and add db details and port details. 
 - npm start
+
+# Packer Run
+- Packer init .
+- Packer fmt
+- Packer Validate
+- Packer Build

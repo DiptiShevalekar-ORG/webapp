@@ -65,7 +65,7 @@ jobs:
       - name: Run 'packer fmt'
         run: |
             cd Dipti_Shevalekar_002245703_01
-            packer fmt packer
+            packer fmt -check packer
       
       - name: Run validate
         run: | 

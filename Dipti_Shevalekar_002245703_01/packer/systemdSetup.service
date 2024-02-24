@@ -9,10 +9,10 @@ User=csye6225
 Group=csye6225
 WorkingDirectory=/opt/webappUnzipped/Dipti_Shevalekar_002245703_01
 ExecStart=node server.js
-Restart=always
+Restart=on-failure
 RestartSec=3
-StandardOutput=syslog
-StandardError=syslog
+StandardOutput=append:/var/log/webapp_output.log
+StandardError=append:/var/log/webapp_error.log
 SyslogIdentifier=csye6225
 
 [Install]

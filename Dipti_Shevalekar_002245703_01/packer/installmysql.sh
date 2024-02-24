@@ -52,6 +52,6 @@ HOST="localhost"
 DB_USERNAME="root"
 PASSWORD="Cloud@123"
 DATABASE="trial_db"
-PORT=3002
+PORT=3003
 
 mysql --user="$DB_USERNAME" --password="$PASSWORD" --host="$HOST" --port="$PORT" --execute="CREATE DATABASE IF NOT EXISTS $DATABASE;"

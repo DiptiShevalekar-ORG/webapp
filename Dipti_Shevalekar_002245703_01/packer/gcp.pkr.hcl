@@ -13,7 +13,7 @@ source "googlecompute" "Assignment04" {
   zone                = var.gcp_project_zone
   network             = "default"
   subnetwork          = "defaul-subnet"
-  image_name = "cloud-packer-vm-custom-image"
+  image_name          = "cloud-packer-vm-custom-image"
 }
 build {
   sources = ["googlecompute.Assignment04"]

@@ -16,6 +16,7 @@ source "googlecompute" "Assignment04" {
   subnetwork          = "defaul-subnet"
   #   ssh_agent_auth      = true
   #   ssh_private_key_file = "/Users/dshev/.ssh/gcp_key.pub"
+  ######
   image_name = "cloud-packer-vm-custom-image"
 }
 

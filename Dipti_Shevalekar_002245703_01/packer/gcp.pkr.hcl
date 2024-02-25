@@ -6,7 +6,6 @@ packer {
     }
   }
 }
-
 source "googlecompute" "Assignment04" {
   project_id          = var.gcp_project_id
   source_image_family = var.the_source_image
@@ -14,12 +13,8 @@ source "googlecompute" "Assignment04" {
   zone                = var.gcp_project_zone
   network             = "default"
   subnetwork          = "defaul-subnet"
-  #   ssh_agent_auth      = true
-  #   ssh_private_key_file = "/Users/dshev/.ssh/gcp_key.pub"
-  ######
   image_name = "cloud-packer-vm-custom-image"
 }
-
 build {
   sources = ["googlecompute.Assignment04"]
   provisioner "shell" {

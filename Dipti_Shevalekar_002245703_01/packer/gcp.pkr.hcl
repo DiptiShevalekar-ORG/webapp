@@ -17,20 +17,15 @@ source "googlecompute" "Assignment04" {
   #   ssh_agent_auth      = true
   #   ssh_private_key_file = "/Users/dshev/.ssh/gcp_key.pub"
    image_name = "cloud-packer-vm-custom-image"
-   ######### adding for git trial
 }
-
-###Adding for code review
 
 build {
   sources = ["googlecompute.Assignment04"]
- 
   provisioner "shell" {
     scripts = [
       "packer/installmysql.sh",
       "packer/installNode.sh",
       "packer/unzipInstall.sh"
-
     ]
   }
   provisioner "file" {
@@ -48,8 +43,4 @@ build {
       "packer/unzipAndSystemd.sh"
     ]
   }
-
 }
-
-
-

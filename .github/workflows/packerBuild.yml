@@ -22,14 +22,14 @@ jobs:
                 echo $(pwd)
 
             
-             - name: Create env file
-               run: |
-                touch .env
-                echo "PORT=3000" >> .env
-                echo "DATABASE=trial_db" >> .env
-                echo "DB_USERNAME=root" >> .env
-                echo "PASSWORD=Cloud@123" >> .env
-                echo "HOST=localhost" >> .env
+            #  - name: Create env file
+            #    run: |
+            #     touch .env
+            #     echo "PORT=3000" >> .env
+            #     echo "DATABASE=trial_db" >> .env
+            #     echo "DB_USERNAME=root" >> .env
+            #     echo "PASSWORD=Cloud@123" >> .env
+            #     echo "HOST=localhost" >> .env
           
 
              - name: Install Packer

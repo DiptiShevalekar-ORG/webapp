@@ -10,9 +10,6 @@ sudo mv /tmp/webapp.zip /opt/
 sudo unzip -o /opt/webapp.zip -d /opt/webappUnzipped
 
 sudo chown -R csye6225:csye6225 /opt/webappUnzipped/Dipti_Shevalekar_002245703_01
-
-sudo mv /tmp/.env /opt/webappUnzipped/Dipti_Shevalekar_002245703_01
-
 sudo systemctl enable mysqld
 
 cd /opt/webappUnzipped/Dipti_Shevalekar_002245703_01

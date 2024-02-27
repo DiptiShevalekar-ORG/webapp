@@ -31,7 +31,7 @@ build {
   # provisioner "file" {
   #   source      = "/home/runner/work/webapp/webapp/.env"
   #   destination = "/tmp/.env"
-
+//sudo systemctl enable mysqld
   //sudo mv /tmp/.env /opt/webappUnzipped/Dipti_Shevalekar_002245703_01
   # }
   provisioner "shell" {

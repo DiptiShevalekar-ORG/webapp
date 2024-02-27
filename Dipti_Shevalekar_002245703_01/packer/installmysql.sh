@@ -12,6 +12,7 @@ sleep 10
 expect << EOF
 spawn sudo mysql_secure_installation
 
+
 expect "Press y|Y for Yes, any other key for No:"
 send "y\r"
 

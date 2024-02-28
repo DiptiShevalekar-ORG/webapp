@@ -1,13 +1,14 @@
 [Unit]
 Description=VM setup with Image
-ConditionPathExists=/opt/webappUnzipped/Dipti_Shevalekar_002245703_01
 After=network.target
 
 [Service]
+EnvironmentFile=/opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
 Type=simple
 User=csye6225
 Group=csye6225
 WorkingDirectory=/opt/webappUnzipped/Dipti_Shevalekar_002245703_01
+ExecStartPre=/bin/bash -c 'while [[ ! -f /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env ]]; do sleep 1; done'
 ExecStart=node server.js
 Restart=on-failure
 RestartSec=3

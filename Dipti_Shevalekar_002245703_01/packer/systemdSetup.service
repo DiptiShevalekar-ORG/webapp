@@ -3,6 +3,7 @@ Description=VM setup with Image
 After=network.target
 
 [Service]
+EnvironmentFile=/opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
 Type=simple
 User=csye6225
 Group=csye6225

@@ -1,6 +1,6 @@
 [Unit]
 Description=VM setup with Image
-ConditionPathExists=/opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+ConditionPathExists=/opt/webappUnzipped/Dipti_Shevalekar_002245703_01
 After=network.target
 
 [Service]

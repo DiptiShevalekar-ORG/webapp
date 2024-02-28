@@ -29,7 +29,7 @@ variable "gcp_ssh_username" {
 }
 
 variable "the_source_image" {
-  default = "centos-stream-8"
+  default = "centos-stream-8-v20240110"
 }
 
 

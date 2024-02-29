@@ -22,3 +22,5 @@ sudo chmod 770 /etc/systemd/system/systemdSetup.service
 sudo systemctl daemon-reload
 sudo systemctl enable systemdSetup.service
 sudo systemctl start systemdSetup.service
+cd /opt/webappUnzipped/Dipti_Shevalekar_002245703_01
+sudo node server.js

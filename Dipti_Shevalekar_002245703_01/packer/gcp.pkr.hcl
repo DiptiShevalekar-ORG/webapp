@@ -22,12 +22,15 @@ build {
       // "packer/installmysql.sh",
       "packer/installNode.sh",
       "packer/unzipInstall.sh"
+      "packer/installOpsAgent"
     ]
   }
   provisioner "file" {
     source      = "/home/runner/work/webapp/webapp/webapp.zip"
     destination = "/tmp/webapp.zip"
   }
+
+
   # provisioner "file" {
   #   source      = "/home/runner/work/webapp/webapp/.env"
   #   destination = "/tmp/.env"
@@ -35,6 +38,8 @@ build {
   //sudo systemctl enable mysqld
   //sudo mv /tmp/.env /opt/webappUnzipped/Dipti_Shevalekar_002245703_01
   # }
+
+
   provisioner "shell" {
     scripts = [
       "packer/unzipAndSystemd.sh"

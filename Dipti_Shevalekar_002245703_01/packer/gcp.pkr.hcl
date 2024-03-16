@@ -21,7 +21,7 @@ build {
     scripts = [
       // "packer/installmysql.sh",
       "packer/installNode.sh",
-      "packer/unzipInstall.sh"
+      "packer/unzipInstall.sh",
       "packer/installOpsAgent"
     ]
   }

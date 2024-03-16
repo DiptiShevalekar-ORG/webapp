@@ -19,7 +19,6 @@ build {
   sources = ["googlecompute.Assignment04"]
   provisioner "shell" {
     scripts = [
-      // "packer/installmysql.sh",
       "packer/installNode.sh",
       "packer/unzipInstall.sh",
       "packer/installOpsAgent"

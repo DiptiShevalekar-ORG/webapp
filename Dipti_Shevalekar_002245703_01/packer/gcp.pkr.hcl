@@ -21,7 +21,7 @@ build {
     scripts = [
       "packer/installNode.sh",
       "packer/unzipInstall.sh",
-      "packer/installOpsAgent"
+      "packer/installOpsAgent.sh"
     ]
   }
   provisioner "file" {

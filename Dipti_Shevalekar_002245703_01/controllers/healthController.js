@@ -2,6 +2,8 @@ const {Sequelize} = require('sequelize');
 
 // const mysql = require('mysql2');
 // const{express} = require('express');
+const logger = require('../weappLogs')
+
 
 
 const sequelize = new Sequelize(
@@ -50,6 +52,7 @@ const sequelize = new Sequelize(
             //    console.log(req.params)
                 if(Object.keys(req.query).length>0 || Object.keys(req.body).length>0 || Object.keys(req.params).length>0){
                     res.status(400).send();
+                    logger.warn(`400 Bad Request`)
                     console.log(req.params)
                     return;
                 }

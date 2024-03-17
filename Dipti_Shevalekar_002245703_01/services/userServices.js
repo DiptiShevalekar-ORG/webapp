@@ -1,5 +1,7 @@
 const users = require('../models/userModel');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+
+const logger = require('../weappLogs');
 
 async function createUser(req, res) {
     console.log(req.body)
@@ -28,6 +30,7 @@ async function createUser(req, res) {
 }
 
 async function getAuth(req, res) {
+    logger.info(`${req.user.UserName} logged in`)
     return res.status(200).json({
         id: req.user.id,
         FirstName: req.user.FirstName,

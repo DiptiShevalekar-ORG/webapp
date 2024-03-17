@@ -1,5 +1,8 @@
+//usercontroller.js
+
 const {Sequelize} = require('sequelize');
-const {createUser, getAuth, updateUser} = require('../services/userServices')
+const {createUser, getAuth, updateUser} = require('../services/userServices');
+const logger = require('../weappLogs')
 //const users = require('../models/userModel');
 
 const sequelize = new Sequelize(
@@ -27,6 +30,7 @@ const sequelize = new Sequelize(
 const userMethod = async (req, res) => {
     try {
       const user =  await createUser(req, res);
+      logger.info(`${user.id} with Username = ${user.UserName} is successfully created`)
         return res.status(201).json({
             id: user.id,
             FirstName: user.FirstName,
@@ -100,6 +104,7 @@ const updateUserControllerMethod = async (req, res) => {
        const UpdatedUserDetails =  await updateUser(req, res)
     //    console.log("UpdatedUserDetails"+UpdatedUserDetails)
         res.status(204).json()
+        logger.info(`${user.id} Updated User Data`)
 
     } catch (error) {
 

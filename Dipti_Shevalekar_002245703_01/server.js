@@ -1,3 +1,5 @@
+//server.js
+
 const express = require("express");
 require('dotenv').config();
 const routes = require('./routes/healthRoutes');
@@ -7,6 +9,16 @@ const connection = require('mysql2')
 const {methodAllowed, sequelize} = require("./controllers/healthController");
 const app = express();
 const port = process.env.PORT;
+
+const expressWinston = require('express-winston')
+const { transports, format } = require('winston')
+
+
+const logger = require('./weappLogs')
+app.use(expressWinston.logger({
+    winstonInstance: logger,
+    statusLevels: true
+}))
 
 
 app.use(bodyParser.json());
@@ -52,9 +64,6 @@ app.use('/v1/user', userRoutes);
 
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.raw({limit: '50mb', type: () => true}));
-
-
-
 
 app.listen(port, () => {
 

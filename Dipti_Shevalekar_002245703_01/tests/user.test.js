@@ -3,6 +3,16 @@ const supertest = require("supertest");
 const testData = require("../tests/testData");
 const app = require("../server");
 
+const expressWinston = require('express-winston')
+const { transports, format } = require('winston')
+
+
+const logger = require('../weappLogs')
+app.use(expressWinston.logger({
+    winstonInstance: logger,
+    statusLevels: true
+}))
+
 const request = supertest(app);
 
 describe("User API Integration Tests", () => {

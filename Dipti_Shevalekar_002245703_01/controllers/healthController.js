@@ -3,7 +3,7 @@ const {Sequelize} = require('sequelize');
 // const mysql = require('mysql2');
 // const{express} = require('express');
 
-
+const logger = require('../weappLogs')
 const sequelize = new Sequelize(
 
     process.env.DATABASE,
@@ -58,6 +58,7 @@ const sequelize = new Sequelize(
                 await sequelize.authenticate();
 
                 res.status(200).send();
+                logger.info(`Succefully connected to Database`)
 
             }catch(error){
 

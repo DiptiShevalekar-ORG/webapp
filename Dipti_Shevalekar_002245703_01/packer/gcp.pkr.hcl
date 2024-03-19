@@ -20,8 +20,8 @@ build {
   provisioner "shell" {
     scripts = [
       "packer/installNode.sh",
-      "packer/unzipInstall.sh",
-      "packer/installOpsAgent.sh"
+      "packer/unzipInstall.sh"
+      
     ]
   }
   provisioner "file" {
@@ -41,7 +41,8 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "packer/unzipAndSystemd.sh"
+      "packer/unzipAndSystemd.sh",
+      "packer/installOpsAgent.sh"
     ]
   }
 }

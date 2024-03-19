@@ -1,0 +1,30 @@
+logging: 
+  receivers:
+    my-app-receiver:
+      type: files
+      include_paths:
+        - /var/log/Webapp.log
+      record_log_file_path: true
+  processors:
+    my-app-processor:
+      type: parse_json
+      time_key: time
+      time_format: "%Y-%m-%dT%H:%M:%S.%L%Z"
+    debug_mapping_processor:
+      type: attributes
+      attributes:
+        severity: Severity
+      mappings:
+        - key: "DEBUG"
+          value: "DEBUG"
+        - key: "INFO"
+          value: "INFO"
+        - key: "ERROR"
+          value: "ERROR"
+        - key: "WARN"
+          value: "WARNING"
+  service:
+    pipelines:
+      default_pipeline:
+        receivers: [my-app-receiver]
+        processors: [my-app-processor, debug_mapping_processor]

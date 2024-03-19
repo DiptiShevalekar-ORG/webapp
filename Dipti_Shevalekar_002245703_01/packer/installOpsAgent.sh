@@ -4,6 +4,7 @@ curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
 sudo bash add-google-cloud-ops-agent-repo.sh --also-install
 
 #Adding the logging part --- dont forget adding logging:
+sudo chown -R csye6225:csye6225 /var/log/
 sudo bash -c 'cat <<EOF > /etc/google-cloud-ops-agent/config.yaml
 logging: 
   receivers:
@@ -24,7 +25,7 @@ logging:
         processors: [my-app-processor]
 EOF'
 
-sudo chown -R csye6225:csye6225 /var/log/
+
 sudo chmod -R 775 /etc/google-cloud-ops-agent/config.yaml
 
 #sudo vi /etc/google-cloud-ops-agent/config.yaml

@@ -5,6 +5,8 @@ sudo bash add-google-cloud-ops-agent-repo.sh --also-install
 
 #Adding the logging part --- dont forget adding logging:
 sudo chown -R csye6225:csye6225 /var/log/
+
+sudo chmod -R 775 /etc/google-cloud-ops-agent/
 sudo mv /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/packer/config.yaml /etc/google-cloud-ops-agent/
 
 # sudo bash -c 'cat <<EOF > /etc/google-cloud-ops-agent/config.yaml
@@ -28,7 +30,6 @@ sudo mv /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/packer/config.yaml /et
 # EOF'
 
 
-sudo chmod -R 775 /etc/google-cloud-ops-agent/config.yaml
 
 #sudo vi /etc/google-cloud-ops-agent/config.yaml
 sudo systemctl restart google-cloud-ops-agent

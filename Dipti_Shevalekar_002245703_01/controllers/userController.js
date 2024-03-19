@@ -93,6 +93,7 @@ const authenticationFound = async (req, res) => {
 
         if(req.headers["content-length"]?.length>0 ){
           res.status(400).json("Request can not have body")
+          logger.error(`Authentication failed for  ${user.id}`)
         }else{
             await getAuth(req, res)
         }
@@ -109,16 +110,21 @@ const updateUserControllerMethod = async (req, res) => {
     } catch (error) {
 
         if (error.name == "SequelizeValidationError") {
+            logger.error(`${error.name}`) 
             return res.status(400).json(error.errors[0].message)
+          
         } else if (error.name == "SequelizeUniqueConstraintError") {
+            logger.error(`${error.name}`) 
             return res.status(409).json(error.errors[0].message)
         } else {
+            logger.error(`${error.name}`) 
             return res.status(400).send()
         }
     }
 }
 
 const methodNotAllowed = (req, res) => {
+    logger.error(`Invalid Request by user ${user.UserName}`) 
     res.status(405).send()
 }
 

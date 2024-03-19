@@ -4,7 +4,7 @@ curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
 sudo bash add-google-cloud-ops-agent-repo.sh --also-install
 
 
-sudo bash -c 'vi <<EOF > /etc/google-cloud-ops-agent/config.yaml
+sudo bash -c 'cat <<EOF > /etc/google-cloud-ops-agent/config.yaml
 receivers:
   my-app-receiver:
     type: files

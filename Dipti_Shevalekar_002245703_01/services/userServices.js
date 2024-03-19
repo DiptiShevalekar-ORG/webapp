@@ -23,6 +23,7 @@ async function createUser(req, res) {
             console.log(user)
             return user
         } else {
+         //   logger.error(`${user.UserName} tried adding invalid data - ${additionalFields}`)     
             res.status(400).send(`Can not create ${additionalFields}`)
             throw new Error()
         }
@@ -60,6 +61,8 @@ async function updateUser(req, res) {
 
     );
     if (additionalFields.length > 0) {
+   // logger.warn(`${user.UserName} tried adding invalid data - ${additionalFields}`)
+
     return res.status(400).send(`Can not update ${additionalFields}`)
         // return res.status(400).send()
    //   return new Error("errrorrrrooorrrrrr")
@@ -81,7 +84,7 @@ async function updateUser(req, res) {
 
        // await users.save()
         //updatedUser.save()
-        console.log("Updated User :::: " + updatedUser)
+        console.log("Updated User : " + updatedUser)
 
         // user.FirstName = updateFirstName
         // user.LastName = updateLastName

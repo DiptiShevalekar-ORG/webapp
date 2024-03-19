@@ -3,8 +3,7 @@
 curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
 sudo bash add-google-cloud-ops-agent-repo.sh --also-install
 
-sudo chown csye6225:csye6225 /var/log/webapp.log
-sudo chmod -R 775 /etc/google-cloud-ops-agent/config.yaml
+
 
 sudo bash -c 'cat <<EOF > /etc/google-cloud-ops-agent/config.yaml
 
@@ -12,7 +11,7 @@ receivers:
   my-app-receiver:
     type: files
     include_paths:
-      - /var/Webapp.log
+      - /var/log/Webapp.log
     record_log_file_path: true
 
 processors:
@@ -29,6 +28,9 @@ service:
 
 
 EOF'
+
+sudo chown -R csye6225:csye6225 /var/log/webapp.log
+sudo chmod -R 775 /etc/google-cloud-ops-agent/config.yaml
 
 #sudo vi /etc/google-cloud-ops-agent/config.yaml
 sudo systemctl restart google-cloud-ops-agent

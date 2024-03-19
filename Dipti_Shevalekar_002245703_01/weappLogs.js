@@ -13,15 +13,13 @@ const logFormat = winston.format.printf(({ level, message, timestamp }) => {
 const WebappLogging = winston.createLogger({
 
   format: winston.format.combine(
-    
     winston.format.json(), 
     winston.format.timestamp(), 
     logFormat
-
     ),
 
   transports: [
-    new winston.transports.File({ filename: './webapp.log' }),
+    new winston.transports.File({ filename: '/var/log/webapp.log' }),
     new winston.transports.Console(),
   ],
 });

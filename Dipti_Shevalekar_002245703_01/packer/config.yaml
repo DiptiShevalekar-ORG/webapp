@@ -1,4 +1,4 @@
-logging: 
+logging:
   receivers:
     my-app-receiver:
       type: files

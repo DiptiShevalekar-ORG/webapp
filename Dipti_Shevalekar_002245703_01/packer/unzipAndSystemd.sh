@@ -19,8 +19,10 @@ sudo mv /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/packer/systemdSetup.se
 sudo chown -R csye6225:csye6225 /etc/systemd/system/systemdSetup.service
 sudo chmod 770 /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/
 sudo chmod 770 /etc/systemd/system/systemdSetup.service
+
 sudo systemctl daemon-reload
 sudo systemctl enable systemdSetup.service
-sudo systemctl restart systemdSetup.service
+sudo systemctl start systemdSetup.service
+sudo systemctl status systemdSetup.service
 
 

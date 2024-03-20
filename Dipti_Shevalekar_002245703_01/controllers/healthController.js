@@ -50,7 +50,7 @@ const sequelize = new Sequelize(
             //    console.log(req.params)
                 if(Object.keys(req.query).length>0 || Object.keys(req.body).length>0 || Object.keys(req.params).length>0){
                     res.status(400).send();
-                    console.log(req.params)
+                   // console.log(req.params)
                     return;
                 }
        //         console.log(process.env.DB_USERNAME);
@@ -74,11 +74,11 @@ const sequelize = new Sequelize(
             //    console.log(req.params)
                 if(Object.keys(req.query).length>0 || Object.keys(req.body).length>0 || Object.keys(req.params).length>0){
                     res.status(400).send();
-                    console.log(req.params)
+                 //   console.log(req.params)
                     return;
                 }
        //         console.log(process.env.DB_USERNAME);
-
+                logger.debug("User is about to get data")
                 await sequelize.authenticate();
 
                 res.status(200).send();

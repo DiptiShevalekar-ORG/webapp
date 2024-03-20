@@ -6,11 +6,11 @@ const logger = createLogger({
     format: format.combine(
         format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         format.printf(({ level, message, timestamp }) => {
-            return {
+            return JSON.stringify({
                 severity: level.toUpperCase(),
                 message,
                 timestamp
-            };
+            });
         })
     ),
     transports: [

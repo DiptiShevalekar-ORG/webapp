@@ -37,6 +37,10 @@ jobs :
                   mysql -u${{ secrets.DB_USERNAME }} -p${{ secrets.PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ${{ secrets.DATABASE }};"
                   mysql -u${{ secrets.DB_USERNAME }} -p${{ secrets.PASSWORD }} -e "USE ${{ secrets.DATABASE }};" || exit 1
         
+            - name: Creating demo file
+              run: | 
+                sudo mkdir -p /var/log/webapp
+                
             - name: Run Integration Test
               env:
                 HOST: ${{ secrets.HOST }}

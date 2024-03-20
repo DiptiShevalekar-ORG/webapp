@@ -93,7 +93,7 @@ const userMethod = async (req, res) => {
 
 
 const authenticationFound = async (req, res) => {
-
+        logger.debug("Recieved Authentication Request")
         if(req.headers["content-length"]?.length>0 ){
           res.status(400).json("Request can not have body")
           logger.error(`Authentication failed for  ${user.id}`)
@@ -103,7 +103,7 @@ const authenticationFound = async (req, res) => {
 }
 
 const updateUserControllerMethod = async (req, res) => {
-
+    logger.debug(`User Logged in to Update the account`)
     try {
        const UpdatedUserDetails =  await updateUser(req, res)
     //    console.log("UpdatedUserDetails"+UpdatedUserDetails)

@@ -65,7 +65,7 @@ app.use(bodyParser.raw({limit: '50mb', type: () => true}));
 
 app.listen(port, () => {
 
-    console.log(`Server : http://localhost:${port}`);
+  //  console.log(`Server : http://localhost:${port}`);
 
 });
 

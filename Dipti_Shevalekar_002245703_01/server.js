@@ -1,5 +1,3 @@
-//server.js
-
 const express = require("express");
 require('dotenv').config();
 const routes = require('./routes/healthRoutes');

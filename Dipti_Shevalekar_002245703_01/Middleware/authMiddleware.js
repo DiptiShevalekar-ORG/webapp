@@ -15,13 +15,13 @@ const getAuthorization = async (req, res, next) => {
         const username = credentials[0];
         const password = credentials[1];
 
-        console.log("after Split and buffer ====" + username)
-        console.log("after split and bcrypt ===" + password)
+        //console.log("after Split and buffer ====" + username)
+        //console.log("after split and bcrypt ===" + password)
 
         const user = await users.findOne({where: {UserName: username}});
 
-        console.log("Found user get auth::::::::::::::::::::::: " + user.dataValues.UserName);
-        console.log(user)
+        //console.log("Found user get auth::::::::::::::::::::::: " + user.dataValues.UserName);
+       // console.log(user)
         const trialvalidpass = await user.validPassword(password);
         // console.log("TrialValid Password :: " + trialvalidpass)
 
@@ -30,7 +30,7 @@ const getAuthorization = async (req, res, next) => {
         // }
         if (!trialvalidpass) {
 
-            console.log("ValidPassword ======= " + password)
+           // console.log("ValidPassword ======= " + password)
             const error = new Error('Not Authenticated');
 
             return res.status(401).end()

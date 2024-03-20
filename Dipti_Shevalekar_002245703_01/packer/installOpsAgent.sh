@@ -13,6 +13,7 @@ sudo chown -R csye6225:csye6225 /var/log/
 sudo chmod -R 775 /etc/google-cloud-ops-agent/
 echo "permission set"
 echo "moving file"
+
 sudo mv /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/packer/config.yaml /etc/google-cloud-ops-agent/
 echo "successfully moved the file"
 sudo chmod -R 775 /etc/google-cloud-ops-agent/config.yaml

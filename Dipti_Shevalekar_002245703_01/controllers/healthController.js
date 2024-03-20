@@ -89,7 +89,7 @@ const sequelize = new Sequelize(
                 res.status(503).send();
             }
         }else{
-            logger.error(`unsuccessfullllll connected to Database`)
+            logger.error(`Connection to Database Failed`)
             res.status(405).send();
            
 
@@ -104,7 +104,7 @@ const sequelize = new Sequelize(
         }else{
            
             res.status(405).send();
-            logger.error(`unsuccessfullllll connected to Database`)
+            logger.error(`Connection to Database Failed`)
         }
     };
 

@@ -5,6 +5,8 @@ sudo bash add-google-cloud-ops-agent-repo.sh --also-install
 
 #Adding the logging part --- dont forget adding logging:
 echo "setting permissions"
+cd /var/log/
+sudo mkdir webapp
 sudo chown -R csye6225:csye6225 /var/log/webapp/
 
 sudo chmod -R 775 /etc/google-cloud-ops-agent/

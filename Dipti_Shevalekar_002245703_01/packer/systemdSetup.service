@@ -1,6 +1,5 @@
 [Unit]
 Description=VM setup with Image
-ConditionPathExists=/opt/webappUnzipped/Dipti_Shevalekar_002245703_01
 After=network.target
 
 [Service]
@@ -13,8 +12,6 @@ Restart=on-failure
 RestartSec=3
 StandardOutput=append:/var/log/webapp_output.log
 StandardError=append:/var/log/webapp_error.log
-SyslogIdentifier=csye6225
 
 [Install]
 WantedBy=multi-user.target
-WantedBy=cloud-init.target

@@ -13,10 +13,10 @@ const { transports, format } = require('winston')
 
 
 const logger = require('./weappLogs')
-app.use(expressWinston.logger({
-    winstonInstance: logger,
-    statusLevels: true
-}))
+// app.use(expressWinston.logger({
+//     winstonInstance: logger,
+//     statusLevels: true
+// }))
 
 
 app.use(bodyParser.json());
@@ -64,7 +64,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.raw({limit: '50mb', type: () => true}));
 
 app.listen(port, () => {
-
+    logger.info(`Application successfully started!`)
   //  console.log(`Server : http://localhost:${port}`);
 
 });

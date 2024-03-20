@@ -4,19 +4,19 @@ curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
 sudo bash add-google-cloud-ops-agent-repo.sh --also-install
 
 #Adding the logging part --- dont forget adding logging:
-sudo chown -R csye6225:csye6225 /var/log/
+#sudo chown -R csye6225:csye6225 /var/log/webapp/
 # echo "setting permissions"
-# cd /var/log/
-# sudo mkdir webapp
-# sudo chown -R csye6225:csye6225 /var/log/webapp/
+cd /var/log/
+sudo mkdir webapp
+sudo chown -R csye6225:csye6225 /var/log/webapp/
 
-sudo chmod -R 775 /etc/google-cloud-ops-agent/
+#sudo chmod -R 775 /etc/google-cloud-ops-agent/
 echo "permission set"
 echo "moving file"
 
 sudo mv /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/packer/config.yaml /etc/google-cloud-ops-agent/
 echo "successfully moved the file"
-sudo chmod -R 775 /etc/google-cloud-ops-agent/config.yaml
+#sudo chmod -R 775 /etc/google-cloud-ops-agent/config.yaml
 
 # sudo bash -c 'cat <<EOF > /etc/google-cloud-ops-agent/config.yaml
 # logging: 

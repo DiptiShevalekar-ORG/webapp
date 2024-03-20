@@ -12,6 +12,7 @@ echo "permission set"
 echo "moving file"
 sudo mv /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/packer/config.yaml /etc/google-cloud-ops-agent/
 echo "successfully moved the file"
+sudo chmod -R 775 /etc/google-cloud-ops-agent/config.yaml
 
 # sudo bash -c 'cat <<EOF > /etc/google-cloud-ops-agent/config.yaml
 # logging: 
@@ -34,6 +35,6 @@ echo "successfully moved the file"
 # EOF'
 
 
-
+sleep 10
 #sudo vi /etc/google-cloud-ops-agent/config.yaml
 sudo systemctl restart google-cloud-ops-agent

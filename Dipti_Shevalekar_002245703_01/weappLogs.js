@@ -1,29 +1,24 @@
 const winston = require('winston');
+const { createLogger, format, transports } = winston;
 
-// const logFilePath = './webapp.log';
-// if (!fs.existsSync(logFilePath)) {
-//     fs.writeFileSync(logFilePath, '', { flag: 'w' });
-// }
-
-const logFormat = winston.format.printf(({ level, message, timestamp }) => {
- 
-    return `{"timestamp" : ${timestamp} 
-              "Severity" : ${level.toUpperCase()}
-              "Message" : ${message}}`;
-});
-
-const WebappLogging = winston.createLogger({
-  level: 'debug',
-  format: winston.format.combine(
-    winston.format.json(), 
-    winston.format.timestamp(), 
-    logFormat
+const logger = createLogger({
+    level: 'info',
+    format: format.combine(
+        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        format.printf(({ level, message, timestamp }) => {
+            return JSON.stringify({
+                severity: level.toUpperCase(),
+                message,
+                timestamp
+            });
+        })
     ),
-
-  transports: [
-    new winston.transports.File({ filename: '/var/log/webapp.log' }),
-    new winston.transports.Console(),
-  ],
+    transports: [
+        new winston.transports.File({
+            filename: './webapp.log',
+        }),
+        new winston.transports.Console()
+    ]
 });
 
-module.exports = WebappLogging;
+module.exports = logger;

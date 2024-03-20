@@ -1,5 +1,3 @@
-//userServices.js
-
 const users = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
@@ -14,6 +12,9 @@ async function createUser(req, res) {
         );
         if (additionalFields.length == 0) {
           //  console.log("Reached to services")
+          const { FirstName, LastName, Password, UserName } = req.body;
+          if (FirstName && LastName && Password && UserName && Password.trim() !== "") {
+           
             const userdetails = req.body
          //   console.log("Unhashed Password " + userdetails.Password)
             userdetails.Password = bcrypt.hashSync(userdetails.Password, 10);
@@ -22,7 +23,12 @@ async function createUser(req, res) {
             );
             console.log(user)
             return user
+          }
+          else{
+            throw new Error(`Cannot add empty fields`)
+          }
         } else {
+            logger.error(`User tried creating invalid field- ${additionalFields}`)
             res.status(400).send(`Can not create ${additionalFields}`)
             throw new Error()
         }
@@ -32,6 +38,7 @@ async function createUser(req, res) {
 }
 
 async function getAuth(req, res) {
+
     logger.info(`${req.user.UserName} logged in`)
     return res.status(200).json({
         id: req.user.id,
@@ -60,6 +67,7 @@ async function updateUser(req, res) {
 
     );
     if (additionalFields.length > 0) {
+    logger.error(`User tried updating invalid field- ${additionalFields}`)
     return res.status(400).send(`Can not update ${additionalFields}`)
         // return res.status(400).send()
    //   return new Error("errrorrrrooorrrrrr")

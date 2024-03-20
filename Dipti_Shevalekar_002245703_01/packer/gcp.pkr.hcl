@@ -42,6 +42,7 @@ build {
     scripts = [
       "packer/unzipAndSystemd.sh",
       "packer/installOpsAgent.sh"
+      //"packer/startup.sh"
     ]
   }
 }

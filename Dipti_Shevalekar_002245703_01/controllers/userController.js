@@ -46,11 +46,11 @@ const userMethod = async (req, res) => {
             logger.error(`${error.name}`)
             return res.status(400).json({msg: error.errors[0].message})
         } else if (error.name == "SequelizeUniqueConstraintError") {
-            console.log(error)
+          //  console.log(error)
             logger.error(`${error.name}`)
             return res.status(409).json(error.errors[0].message)
         } else {
-            logger.error(`${error.name}`)
+              logger.error(`${error.name}`)
             return res.status(400).send()
         }
         //  console.error(error);

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const logger = require('../weappLogs');
 
 async function createUser(req, res) {
-    console.log(req.body)
+  //  console.log(req.body)
     try {
         const allowedFields = ["FirstName", "LastName", "Password", "UserName"];
         const additionalFields = Object.keys(req.body).filter(
@@ -21,10 +21,11 @@ async function createUser(req, res) {
             const user = await users.create(
                 userdetails
             );
-            console.log(user)
+         //   console.log(user)
             return user
           }
           else{
+            logger.warn(`User tried creating account with empty fields- The account was not created`)
             throw new Error(`Cannot add empty fields`)
           }
         } else {
@@ -89,7 +90,7 @@ async function updateUser(req, res) {
 
        // await users.save()
         //updatedUser.save()
-        console.log("Updated User :::: " + updatedUser)
+        logger.debug(`Updated User`)
 
         // user.FirstName = updateFirstName
         // user.LastName = updateLastName

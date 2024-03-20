@@ -60,7 +60,7 @@ jobs:
       - name: Run `packer init`
         run: |
           cd Dipti_Shevalekar_002245703_01
-          packer init packer
+          packer init packer 
 
       - name: Run 'packer fmt'
         run: |

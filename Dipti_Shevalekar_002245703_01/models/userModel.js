@@ -64,22 +64,22 @@ const users = sequelize.define('users', {
 
 });
 users.prototype.validPassword = async function (password) {
-    console.log("Model Password ====" + password);
-    console.log("this is the password here: " + this.Password);
-    console.log(password);
+   // console.log("Model Password ====" + password);
+   // console.log("this is the password here: " + this.Password);
+    //console.log(password);
     //  return password
     const x = await bcrypt.compare(password, this.Password);
-    console.log(x);
+  //  console.log(x);
     return x;
 };
 
 
 users.sync({force: false})
     .then(() => {
-        console.log("Table Created");
+      //  console.log("Table Created");
     })
     .catch((error) => {
-        console.log("Table Not Created", error);
+       // console.log("Table Not Created", error);
     });
 
 module.exports = users;

@@ -92,10 +92,6 @@ async function updateUser(req, res) {
         //updatedUser.save()
         logger.debug(`Updated User`)
 
-        // user.FirstName = updateFirstName
-        // user.LastName = updateLastName
-        // user.Password = bcrypt.hashSync(req.body.Password, 10);
-        // await user.save()
         return updatedUser
     }
 

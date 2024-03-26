@@ -2,6 +2,7 @@ const winston = require('winston');
 const { createLogger, format, transports } = winston;
 
 const logger = createLogger({
+    level: 'debug',
     format: format.combine(
         format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         format.printf(({ level, message, timestamp }) => {

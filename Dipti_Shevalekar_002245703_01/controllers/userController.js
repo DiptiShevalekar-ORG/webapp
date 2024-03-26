@@ -1,8 +1,9 @@
-//usercontroller.js
-
 const {Sequelize} = require('sequelize');
 const {createUser, getAuth, updateUser} = require('../services/userServices');
 const logger = require('../weappLogs')
+const { PubSub } = require('@google-cloud/pubsub');
+
+const pubsub = new PubSub({ projectId: 'cloudassignment03-413923' });
 //const users = require('../models/userModel');
 
 const sequelize = new Sequelize(
@@ -30,7 +31,19 @@ const sequelize = new Sequelize(
 const userMethod = async (req, res) => {
     try {
       const user =  await createUser(req, res);
+    //   const topicName = 'verify_email';
+      
+    //   const message = {
+    //     userId: user.id,
+    //     userName: user.UserName,
+    //     linksent: new Date() 
+    // };
+     // const dataBuffer = Buffer.from(JSON.stringify(message));
+
+      //await pubsub.topic(topicName).publish(dataBuffer);
+
       logger.info(`${user.id} with Username = ${user.UserName} is successfully created`)
+
         return res.status(201).json({
             id: user.id,
             FirstName: user.FirstName,
@@ -53,44 +66,10 @@ const userMethod = async (req, res) => {
               logger.error(`${error.name}`)
             return res.status(400).send()
         }
-        //  console.error(error);
+      
     }
-    // console.log("Reached to controllers")
-    // if (req.method === "GET") {
-    //
-    //
-    // } else if (req.method === "POST") {
-    //
-    //     await userServices.createUser(req, res);
-    //
-    // } else if (req.method === "PUT") {
 
-    // try {
-    //     const {firstName, lastName, password} = req.body;
-    //     const userId = req.user.id;
-    //
-    //     const user = await User.findByPk(userId);
-    //     if (!user) {
-    //         return res.status(404).json({error: 'User not found'});
-    //     }
-    //
-    //     user.firstName = firstName;
-    //     user.lastName = lastName;
-    //     user.password = await bcrypt.hash(password, 10);
-    //     user.account_updated = new Date();
-    //     await user.save();
-    //
-    //     const responseUser = {...user.toJSON()};
-    //     delete responseUser.password;
-    //
-    //     res.status(200).json(responseUser);
-    // } catch (error) {
-    //     console.error(error);
-    //     res.status(500).json({error: 'Internal Server Error'});
-    // }
-    // }
 };
-
 
 const authenticationFound = async (req, res) => {
         logger.debug("Recieved Authentication Request")

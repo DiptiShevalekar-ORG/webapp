@@ -15,24 +15,7 @@ const sequelize = new Sequelize(
     }
 );
 
-// const getConnection = async (req,res) =>  {
-//
-//     if(Object.keys(req.query).length !== 0 || Object.keys(req.body).length !== 0 || Object.keys(req.params).length !== 0)
-//         {
-//             res.status(400)
-//         }
-//         try{
-//             await sequelize1.authenticate()
-//             res.status(200)
-//                 .setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-//                 .setHeader('Pragma', 'no-cache')
-//                 .setHeader('X-Content-Type-Options', 'nosniff')
-//                 .send();
-//         }
-//         catch (err){
-//             res.status(503)
-//         }
-//     };
+
 
     const methodAllowed = async(req,res)=>{
         //
@@ -59,10 +42,6 @@ const sequelize = new Sequelize(
 
                 res.status(200).send();
                     const methodAllowed = async(req,res)=>{
-        //
-        // res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-        // res.setHeader('Pragma', 'no-cache');
-        // res.setHeader('X-Content-Type-Options', 'nosniff');
 
         if(req.method==="GET"){
             try{
@@ -95,8 +74,6 @@ const sequelize = new Sequelize(
 
         }
     };
-
-
             }catch(error){
 
                 res.status(503).send();

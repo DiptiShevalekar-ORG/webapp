@@ -1,9 +1,9 @@
 const {Sequelize} = require('sequelize');
 const {createUser, getAuth, updateUser} = require('../services/userServices');
 const logger = require('../weappLogs')
-const { PubSub } = require('@google-cloud/pubsub');
+//const { PubSub } = require('@google-cloud/pubsub');
 
-const pubsub = new PubSub({ projectId: 'cloudassignment03-413923' });
+//const pubsub = new PubSub({ projectId: 'cloudassignment03-413923' });
 //const users = require('../models/userModel');
 
 const sequelize = new Sequelize(

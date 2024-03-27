@@ -4,7 +4,7 @@ const users = require('../models/userModel');
 const getAuthorization = async (req, res, next) => {
     try {
         
-      if(  users.isVerified == "true") { 
+    //  if(  users.isVerified == "true") { 
         if (!req.get("Authorization")) {
             const err = new Error('Not Authenticated!');
             res.status(401).set('www-Authenticate', 'Basic');
@@ -32,8 +32,8 @@ const getAuthorization = async (req, res, next) => {
         req.user = user
   
         next();
- }
-    return res.status(401).send("Your account is not verified")
+ 
+   // return res.status(401).send("Your account is not verified")
 
     } catch (error) {
             return res.status(401).end()

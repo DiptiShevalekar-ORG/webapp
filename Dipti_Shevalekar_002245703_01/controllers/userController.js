@@ -25,7 +25,7 @@ const userMethod = async (req, res) => {
   
     console.log("reached after create user")
    if(process.env.NODE_ENV != "test" ){
-
+   
     const topicName = "verify_email";
     console.log("topic name later")
     console.log(user.id)
@@ -76,7 +76,7 @@ const authenticationFound = async (req, res) => {
   logger.debug("Recieved Authentication Request");
   if (req.headers["content-length"]?.length > 0) {
     res.status(400).json("Request can not have body");
-    logger.error(`Authentication failed for  ${user.id}`);
+    logger.error(`Authentication failed for  ${users.id}`);
   } else {
     await getAuth(req, res);
   }
@@ -103,7 +103,6 @@ const updateUserControllerMethod = async (req, res) => {
   }
 };
 
-
 const emailVerification = async (req, res) =>{
   try{
     console.log("this is time")
@@ -123,8 +122,6 @@ const emailVerification = async (req, res) =>{
 
   // const user =  await verifyEmail(req, res);
   //  return req.status(200).send(`${user.UserName} verified successfully`)
- 
-
 
 
 const methodNotAllowed = (req, res) => {

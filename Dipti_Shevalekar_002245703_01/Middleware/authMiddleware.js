@@ -21,7 +21,7 @@ const getAuthorization = async (req, res, next) => {
         const user = await users.findOne({where: {UserName: username}});
 
         //console.log("Found user get auth::::::::::::::::::::::: " + user.dataValues.UserName);
-       // console.log(user)
+      //  console.log(user)
         const trialvalidpass = await user.validPassword(password);
         // console.log("TrialValid Password :: " + trialvalidpass)
 

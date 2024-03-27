@@ -5,12 +5,13 @@
   "main": "server.js",
   "description": "",
   "scripts": {
-    "start": "node server.js",
+    "start": "set NODE_ENV=PROD && node server.js",
     "test": "mocha tests/user.test.js --exit"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/pubsub": "^4.3.3",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "chai": "^5.1.0",
@@ -24,6 +25,5 @@
     "sequelize": "^6.37.0",
     "supertest": "^6.3.4",
     "winston": "^3.12.0"
-    
   }
 }

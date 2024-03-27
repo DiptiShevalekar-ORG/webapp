@@ -41,26 +41,25 @@ const users = sequelize.define('users', {
         type: DataTypes.STRING,
         readOnly: true,
         allowNull: false,
+    },
+    isVerified: {
+        defaultValue: false,
+        type: DataTypes.BOOLEAN
+      
+    },
+    EmailSentTime:{
+        type: DataTypes.DATE
+    
+    },
+    LinkClickedTime: {
+        type: DataTypes.DATE
+  
     }
 }, {
     timestamps: true,
     updatedAt: "account_updated",
     createdAt: "account_created",
-    // hooks: {
-    //     beforeCreate: async (user) => {
-    //         if (user.password) {
-    //             const salt = await bcrypt.genSaltSync(10);
-    //             user.password = bcrypt.hashSync(user.password, salt);
-    //             console.log("this is insdie the hook"+user.password);
-    //         }
-    //     },
-    //     beforeUpdate: async (user) => {
-    //         if (user.password) {
-    //             const salt = await bcrypt.genSaltSync(10);
-    //             user.password = bcrypt.hashSync(user.password, salt);
-    //         }
-    //     },
-    // }
+    
 
 });
 users.prototype.validPassword = async function (password) {
@@ -76,10 +75,10 @@ users.prototype.validPassword = async function (password) {
 
 users.sync({force: false})
     .then(() => {
-      //  console.log("Table Created");
+        console.log("Table Created");
     })
     .catch((error) => {
-       // console.log("Table Not Created", error);
+        console.log("Table Not Created", error);
     });
 
 module.exports = users;

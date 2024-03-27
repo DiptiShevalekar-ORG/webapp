@@ -25,6 +25,7 @@ const sequelize = new Sequelize(
 
         if(req.method==="GET"){
             try{
+                console.log(`this is env = ${process.env.NODE_ENV}`)
                 const contentType = req.headers['content-type'];
                 if (contentType) {
                     return res.status(400).send();

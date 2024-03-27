@@ -5,8 +5,8 @@
   "main": "server.js",
   "description": "",
   "scripts": {
-    "start": "set NODE_ENV=PROD && node server.js",
-    "test": "mocha tests/user.test.js --exit"
+    "start": "set NODE_ENV=prod && node server.js",
+    "test": "set NODE_ENV=test && mocha tests/user.test.js --exit"
   },
   "author": "",
   "license": "ISC",

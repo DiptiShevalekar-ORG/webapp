@@ -34,6 +34,7 @@ async function createUser(req, res) {
             throw new Error()
         }
     } catch (error) {
+        console.log("NEWWWWWWWWWWWWWWW")
         throw error
     }
 }
@@ -97,8 +98,34 @@ async function updateUser(req, res) {
 
 }
 
+async function verifyEmail(req,res){
+
+    console.log("This is verify email function")
+
+    const { token, timestamp } = req.query; 
+    const user = await users.findOne({ where: { id:token } });
+    if (!user) {
+      return res.status(400).send('Invalid token');
+    }
+    const TimeNow = new Date();
+    const verificationSentAt = new Date(timestamp);
+    const diffInMinutes = (TimeNow - verificationSentAt) / 1000 / 60;
+  
+    if (diffInMinutes > 2) {
+      return res.status(400).json({msg:"unauthorized123"});
+    }
+   // users.LinkClickedTime = TimeNow;
+    await user.save();
+  
+    res.send('Email verified successfully. Your account is now activated.');
+    res.status(200).send("authorized")
+}
+
+
+
 module.exports = {
     createUser,
     getAuth,
-    updateUser
+    updateUser,
+    verifyEmail
 };

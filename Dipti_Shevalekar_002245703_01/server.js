@@ -49,7 +49,7 @@ app.use(async(req,res, next) =>{
 })
 
 app.use(async(req,res,next)=>{
-   if( Object.keys(req.query).length !== 0 ||+ Object.keys(req.params).length !== 0){
+   if( (Object.keys(req.query).length !== 0 || Object.keys(req.params).length !== 0) && !req.originalUrl.includes("v1/user/verifyaccount")){
        res.status(400).end()
    }else{
        next()
@@ -65,8 +65,7 @@ app.use(bodyParser.raw({limit: '50mb', type: () => true}));
 
 app.listen(port, () => {
     logger.info(`Application successfully started!`)
-  //  console.log(`Server : http://localhost:${port}`);
-
+   console.log(`Server : http://localhost:${port}`);
 });
 
 module.exports = app;

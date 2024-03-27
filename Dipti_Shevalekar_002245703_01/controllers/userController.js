@@ -21,7 +21,7 @@ const sequelize = new Sequelize(
 const userMethod = async (req, res) => {
   try {
    console.log(`this is env = ${process.env.NODE_ENV}`)
-    const user = await createUser(req, res);
+   const user = await createUser(req, res);
   
     console.log("reached after create user")
    if(process.env.NODE_ENV != "test" ){

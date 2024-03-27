@@ -3,12 +3,7 @@ const users = require('../models/userModel');
 
 const getAuthorization = async (req, res, next) => {
     try {
-        const isTestEnvironment = process.env.NODE_ENV === "test";
         
-        // if (!isTestEnvironment && user.isVerified !== "true") {
-        //     return res.status(401).send("Your account is not verified");
-        // }
-  
       if(  users.isVerified == "true") { 
         if (!req.get("Authorization")) {
             const err = new Error('Not Authenticated!');
@@ -21,9 +16,6 @@ const getAuthorization = async (req, res, next) => {
 
         const username = credentials[0];
         const password = credentials[1];
-
-      
-
         const user = await users.findOne({where: {UserName: username}});
     
         const trialvalidpass = await user.validPassword(password);
@@ -38,7 +30,7 @@ const getAuthorization = async (req, res, next) => {
         }
 
         req.user = user
-
+  
         next();
  }
     return res.status(401).send("Your account is not verified")

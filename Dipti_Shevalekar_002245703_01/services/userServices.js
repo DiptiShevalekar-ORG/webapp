@@ -56,10 +56,6 @@ async function updateUser(req, res) {
     const updateFirstName = req.body.FirstName;
     const updateLastName = req.body.LastName;
 
-   // console.log("Update Value: " + req.user.UserName)
-
-//    const user = await users.findOne({where: {UserName: req.user.UserName}});
-
     const allowedFields = ["FirstName", "LastName", "Password"];
 
     const additionalFields = Object.keys(req.body).filter(
@@ -101,27 +97,31 @@ async function updateUser(req, res) {
 async function verifyEmail(req,res){
 
     console.log("This is verify email function")
+    const token = req.query.token; 
 
-    const { token, timestamp } = req.query; 
     const user = await users.findOne({ where: { id:token } });
     if (!user) {
       return res.status(400).send('Invalid token');
     }
     const TimeNow = new Date();
-    const verificationSentAt = new Date(timestamp);
-    const diffInMinutes = (TimeNow - verificationSentAt) / 1000 / 60;
+    const Emailtime = new Date(user.EmailSentTime); 
+    console.log(Emailtime)
+    const checkDifference = now.getTime() - Emailtime.getTime();
+    const checkif2mins = checkDifference / (1000 * 60);
+   // const verificationSentAt = users.EmailSentTime;    
+   // const diffInMinutes = (TimeNow - Emailtime) / 1000 / 60;
   
-    if (diffInMinutes > 2) {
-      return res.status(400).json({msg:"unauthorized123"});
+    if (checkif2mins > 2) {
+      return res.status(400).json({msg:"Time taken more than 2 mins"});
     }
-   // users.LinkClickedTime = TimeNow;
+    user.LinkClickedTime = TimeNow;
+    user.isVerified = true;
     await user.save();
-  
+   // users.LinkClickedTime = TimeNow;
+    //await user.save();
     res.send('Email verified successfully. Your account is now activated.');
     res.status(200).send("authorized")
 }
-
-
 
 module.exports = {
     createUser,

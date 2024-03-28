@@ -86,7 +86,7 @@ const updateUserControllerMethod = async (req, res) => {
   logger.debug(`User Logged in to Update the account`);
   try {
     const UpdatedUserDetails = await updateUser(req, res);
-    //    console.log("UpdatedUserDetails"+UpdatedUserDetails)
+  
     res.status(204).json();
     logger.info(`${user.id} Updated User Data`);
   } catch (error) {
@@ -110,20 +110,13 @@ const emailVerification = async (req, res) =>{
     console.log(req.query)
 
      await verifyEmail(req,res);
-   // console.log(result);
-    //res.status(200).send("authorized")
-    //response.status(result.code).json(result.msg);
+  
 }catch(error){
     console.log("this is error block")
-   // res.status(400).json({msg:"unauthorized"});
+
   }
 }   
   
-
-  // const user =  await verifyEmail(req, res);
-  //  return req.status(200).send(`${user.UserName} verified successfully`)
-
-
 const methodNotAllowed = (req, res) => {
   logger.error(`Invalid Request by user ${user.UserName}`);
   res.status(405).send();

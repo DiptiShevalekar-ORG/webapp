@@ -85,8 +85,6 @@ async function updateUser(req, res) {
             returning:true
         })
 
-       // await users.save()
-        //updatedUser.save()
         logger.debug(`Updated User`)
 
         return updatedUser
@@ -94,34 +92,31 @@ async function updateUser(req, res) {
 
 }
 
-async function verifyEmail(req,res){
-
-    console.log("This is verify email function")
-    const token = req.query.token; 
-
-    const user = await users.findOne({ where: { id:token } });
-    if (!user) {
-      return res.status(400).send('Invalid token');
-    }
-    const TimeNow = new Date();
-    const Emailtime = new Date(user.EmailSentTime); 
-    console.log(Emailtime)
-    const checkDifference = now.getTime() - Emailtime.getTime();
-    const checkif2mins = checkDifference / (1000 * 60);
-   // const verificationSentAt = users.EmailSentTime;    
-   // const diffInMinutes = (TimeNow - Emailtime) / 1000 / 60;
+async function verifyEmail(token) {
+    try {
+      const user = await users.findOne({ where: { id: token } });
+      if (!user) {
+        return false;
+      }
   
-    if (checkif2mins > 2) {
-      return res.status(400).json({msg:"Time taken more than 2 mins"});
+      const currentTime = new Date();
+      const emailSentTime = new Date(user.EmailSentTime);
+      const timeDifferenceMinutes = (currentTime.getTime() - emailSentTime.getTime()) / (1000 * 60);
+  
+      if (timeDifferenceMinutes > 2) {
+        return false; 
+      }
+  
+      user.LinkClickedTime = currentTime;
+      user.isVerified = true;
+      await user.save();
+  
+      return true;
+    } catch (error) {
+      console.error("Error during email verification:", error);
+      throw error; // Propagate the error to the caller (controller)
     }
-    user.LinkClickedTime = TimeNow;
-    user.isVerified = true;
-    await user.save();
-   // users.LinkClickedTime = TimeNow;
-    //await user.save();
-    res.send('Email verified successfully. Your account is now activated.');
-    res.status(200).send("authorized")
-}
+  }
 
 module.exports = {
     createUser,

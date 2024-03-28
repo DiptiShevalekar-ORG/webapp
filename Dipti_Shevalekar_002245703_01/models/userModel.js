@@ -32,7 +32,7 @@ const users = sequelize.define('users', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-       // pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+   
         validate: {
             isEmail: true,
         },
@@ -63,12 +63,9 @@ const users = sequelize.define('users', {
 
 });
 users.prototype.validPassword = async function (password) {
-   // console.log("Model Password ====" + password);
-   // console.log("this is the password here: " + this.Password);
-    //console.log(password);
-    //  return password
+ 
     const x = await bcrypt.compare(password, this.Password);
-  //  console.log(x);
+
     return x;
 };
 

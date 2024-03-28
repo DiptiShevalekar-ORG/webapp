@@ -103,19 +103,23 @@ const updateUserControllerMethod = async (req, res) => {
   }
 };
 
-const emailVerification = async (req, res) =>{
-  try{
-    console.log("this is time")
+const emailVerification = async (req, res) => {
+  try {
+    const token = req.query.token;
+    const verificationResult = await verifyEmail(token);
 
-    console.log(req.query)
+    if (!verificationResult) {
+      return res.status(400).json({ msg: "Invalid token or time taken more than 2 mins" });
+    }
 
-     await verifyEmail(req,res);
-  
-}catch(error){
-    console.log("this is error block")
-
+    return res.status(200).send("Email verified successfully. Your account is now activated.");
+  } catch (error) {
+    console.error("Error during email verification:", error);
+    return res.status(500).send("An error occurred during email verification.");
   }
-}   
+};
+
+
   
 const methodNotAllowed = (req, res) => {
   logger.error(`Invalid Request by user ${user.UserName}`);

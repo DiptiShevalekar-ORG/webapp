@@ -12,9 +12,6 @@ const sequelize = new Sequelize(
         host: process.env.HOST
     }
 );
-
-
-
     const methodAllowed = async(req,res)=>{
         
 
@@ -27,6 +24,7 @@ const sequelize = new Sequelize(
                  }
 
                 if(Object.keys(req.query).length>0 || Object.keys(req.body).length>0 || Object.keys(req.params).length>0){
+                    logger.error(`query or params or body present in the request `)
                     res.status(400).send();
                
                     return;
@@ -34,7 +32,7 @@ const sequelize = new Sequelize(
     
 
                 await sequelize.authenticate();
-
+                logger.info(`health check successfull`)
                 res.status(200).send();
                     const methodAllowed = async(req,res)=>{
 
@@ -42,10 +40,12 @@ const sequelize = new Sequelize(
             try{
                 const contentType = req.headers['content-type'];
                 if (contentType) {
+                    logger.error(`error in healthchek`)
                     return res.status(400).send();
                  }
 
                 if(Object.keys(req.query).length>0 || Object.keys(req.body).length>0 || Object.keys(req.params).length>0){
+                    logger.error(`query or params or body present in the request `)
                     res.status(400).send();
                
                     return;
@@ -58,7 +58,7 @@ const sequelize = new Sequelize(
                 logger.info(`Succefully connected to Database`)
 
             }catch(error){
-
+                logger.error(`mysql server was down or turned off`)
                 res.status(503).send();
             }
         }else{
@@ -69,7 +69,7 @@ const sequelize = new Sequelize(
         }
     };
             }catch(error){
-
+                logger.error(`mysql server was down or turned off`)
                 res.status(503).send();
             }
         }else{

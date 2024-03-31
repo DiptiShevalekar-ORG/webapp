@@ -35,10 +35,9 @@ const userMethod = async (req, res) => {
     console.log("eeffewrfewrgergaergrgerg")
     const dataBuffer = Buffer.from(JSON.stringify(message));
     console.log("reached after data budffer")
-
+    logger.debug(`hitting cloud function`)
     await pubsub.topic(topicName).publishMessage({data:dataBuffer});
     console.log("Pubsub later")
-
   }
 
     logger.info(`${user.id} with Username = ${user.UserName} is successfully created` );

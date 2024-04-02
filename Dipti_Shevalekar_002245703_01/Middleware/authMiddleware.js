@@ -9,6 +9,7 @@ const getAuthorization = async (req, res, next) => {
       throw err;
     }
     logger.info(`this is the current host - ${process.env.HOST}`)
+    console.log(`Checking if the host has changed -${process.env.HOST}`)
     const credentials = Buffer.from(
       req.get("Authorization").split(" ")[1],
       "base64"
@@ -20,7 +21,7 @@ const getAuthorization = async (req, res, next) => {
     const password = credentials[1];
 
     const user = await users.findOne({ where: { UserName: username } });
-
+      console.log(`Checking if the host has changed -${process.env.HOST}`)
     if (process.env.NODE_ENV !== "test" && !user.isVerified) {
       return res.status(403).send("Your account is not verified");
     }

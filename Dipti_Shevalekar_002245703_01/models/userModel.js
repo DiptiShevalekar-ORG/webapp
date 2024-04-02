@@ -72,6 +72,7 @@ users.prototype.validPassword = async function (password) {
 
 users.sync({force: false})
     .then(() => {
+    
         console.log("Table Created");
     })
     .catch((error) => {

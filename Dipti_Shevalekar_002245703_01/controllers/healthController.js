@@ -27,8 +27,7 @@ const sequelize = new Sequelize(
                     res.status(400).send();
                
                     return;
-                }
-    
+                }  
 
                 await sequelize.authenticate();
                 logger.info(`health check successfull`)

@@ -6,6 +6,7 @@ const logger = require('../weappLogs');
 async function createUser(req, res) {
   //  console.log(req.body)
     try {
+      logger.info(`This is the host for creating user - ${process.env.HOST}`)
         const allowedFields = ["FirstName", "LastName", "Password", "UserName"];
         const additionalFields = Object.keys(req.body).filter(
             (field) => !allowedFields.includes(field)
@@ -52,7 +53,7 @@ async function getAuth(req, res) {
 }
 
 async function updateUser(req, res) {
-
+  logger.info(`This is the host for updating user - ${process.env.HOST}`)
     const updateFirstName = req.body.FirstName;
     const updateLastName = req.body.LastName;
   logger.info(`this is host handling update user - ${process.env.HOST}`)

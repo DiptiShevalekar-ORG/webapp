@@ -22,7 +22,7 @@ const getAuthorization = async (req, res, next) => {
     const user = await users.findOne({ where: { UserName: username } });
 
     if (process.env.NODE_ENV !== "test" && !user.isVerified) {
-      return res.status(401).send("Your account is not verified");
+      return res.status(403).send("Your account is not verified");
     }
     const trialvalidpass = await user.validPassword(password);
     if (!trialvalidpass) {

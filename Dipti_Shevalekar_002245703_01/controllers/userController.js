@@ -20,6 +20,7 @@ const sequelize = new Sequelize(
 
 const userMethod = async (req, res) => {
   try {
+    logger.info(`this is the host for controller - ${process.env.HOST}`)
    console.log(`this is env = ${process.env.NODE_ENV}`)
    const user = await createUser(req, res);
   
@@ -117,7 +118,6 @@ const emailVerification = async (req, res) => {
     return res.status(500).send("An error occurred during email verification.");
   }
 };
-
 
   
 const methodNotAllowed = (req, res) => {

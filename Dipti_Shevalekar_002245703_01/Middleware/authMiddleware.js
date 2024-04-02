@@ -1,5 +1,5 @@
 const users = require("../models/userModel");
-
+const logger = require("../weappLogs");
 const getAuthorization = async (req, res, next) => {
   try {
  
@@ -8,7 +8,7 @@ const getAuthorization = async (req, res, next) => {
       res.status(401).set("www-Authenticate", "Basic");
       throw err;
     }
-
+    logger.info(`this is the current host - ${process.env.HOST}`)
     const credentials = Buffer.from(
       req.get("Authorization").split(" ")[1],
       "base64"
@@ -28,7 +28,8 @@ const getAuthorization = async (req, res, next) => {
     if (!trialvalidpass) {
       return res.status(401).send("Not Authenticated");
     }
-
+    logger.info(`the host is - ${process.env.HOST}`)
+    console.log(`${process.env.HOST}`)
     req.user = user;
     next();
   } catch (error) {

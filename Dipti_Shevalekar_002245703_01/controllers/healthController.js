@@ -1,6 +1,4 @@
 const {Sequelize} = require('sequelize');
-
-
 const logger = require('../weappLogs')
 const sequelize = new Sequelize(
 
@@ -17,6 +15,7 @@ const sequelize = new Sequelize(
 
         if(req.method==="GET"){
             try{
+                logger.info(`This is the host for method check - ${process.env.HOST}`)
                 console.log(`this is env = ${process.env.NODE_ENV}`)
                 const contentType = req.headers['content-type'];
                 if (contentType) {

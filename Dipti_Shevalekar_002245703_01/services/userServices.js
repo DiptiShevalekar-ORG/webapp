@@ -55,7 +55,7 @@ async function updateUser(req, res) {
 
     const updateFirstName = req.body.FirstName;
     const updateLastName = req.body.LastName;
-
+  logger.info(`this is host handling update user - ${process.env.HOST}`)
     const allowedFields = ["FirstName", "LastName", "Password"];
 
     const additionalFields = Object.keys(req.body).filter(
@@ -95,6 +95,7 @@ async function updateUser(req, res) {
 async function verifyEmail(token) {
     try {
       const user = await users.findOne({ where: { id: token } });
+      logger.info(`this is host handling email verification - ${process.env.HOST}`)
       if (!user) {
         return false;
       }

@@ -2,7 +2,7 @@ const users = require("../models/userModel");
 const logger = require("../weappLogs");
 const getAuthorization = async (req, res, next) => {
   try {
- 
+ // commenting for demo
     if (!req.get("Authorization")) {
       const err = new Error("Not Authenticated!");
       res.status(401).set("www-Authenticate", "Basic");

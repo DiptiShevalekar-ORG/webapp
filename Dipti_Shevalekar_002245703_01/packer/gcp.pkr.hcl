@@ -34,4 +34,7 @@ build {
       "packer/installOpsAgent.sh"
     ]
   }
+    post-processor "manifest" { 
+    output = "manifest.json"
+  }
 }

@@ -52,10 +52,15 @@ jobs:
                id: packer_build
                run: |
                   cd Dipti_Shevalekar_002245703_01
-                  IMAGE_ID=$(packer build -machine-readable packer | tee /dev/tty | grep 'artifact,0,id' | cut -d, -f6)
-                  echo "IMAGE_ID=${IMAGE_ID}" >> $GITHUB_ENV
-                  echo "Built image ID is ${IMAGE_ID}"
+                  packer build packer
 
+             - name: GET GCP IMAGE ID
+               id: get_image_id
+               run: |
+                  IMAGE_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
+                  echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
+                  echo "Built GCP image ID is $IMAGE_ID"
+                   
              - name: Generate version number
                id: versioning
                run: echo "VERSION=$(date +%s)" >> $GITHUB_ENV

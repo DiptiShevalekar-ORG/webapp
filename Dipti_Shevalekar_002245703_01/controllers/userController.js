@@ -8,6 +8,9 @@ const { PubSub } = require('@google-cloud/pubsub');
 var pubsub = new PubSub({ projectId: 'cloudassignment03-413923' });
 
 }
+
+//trying to fetch the image id 
+
 const sequelize = new Sequelize(
   process.env.DATABASE,
   process.env.DB_USERNAME,

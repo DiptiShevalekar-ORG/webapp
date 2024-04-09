@@ -57,6 +57,7 @@ jobs:
              - name: GET GCP IMAGE ID
                id: get_image_id
                run: |
+                  cd Dipti_Shevalekar_002245703_01
                   IMAGE_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
                   echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
                   echo "Built GCP image ID is $IMAGE_ID"

@@ -52,7 +52,7 @@ jobs:
                id: packer_build
                run: |
                   cd Dipti_Shevalekar_002245703_01
-                  packer build packer
+                  packer build -except=manifest packer
 
              - name: GET GCP IMAGE ID
                id: get_image_id

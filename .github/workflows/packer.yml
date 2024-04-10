@@ -118,4 +118,8 @@ jobs:
    
         env:
            TEMPLATE_NAME: ${{ env.TEMPLATE_NAME }}
-      
+
+
+      - name: Start Rolling Update
+        run: |
+             gcloud compute instance-groups managed rolling-action start-update gcp-mig1 --version=template=projects/cloudassignment03-413923/regions/us-east1/instanceTemplates/my-template-${{ env.VERSION }} --max-surge=5 --region=us-east1 --project=cloudassignment03-413923

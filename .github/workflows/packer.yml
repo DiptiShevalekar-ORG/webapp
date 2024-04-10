@@ -72,7 +72,58 @@ jobs:
          cd Dipti_Shevalekar_002245703_01
          packer validate packer
 
-     
+         - name: Build Packer Image
+         id: packer_build
+         run: |
+            cd Dipti_Shevalekar_002245703_01
+            packer build -except=manifest packer
+
+      - name: GET GCP IMAGE ID
+        id: get_image_id
+        run: |
+            cd Dipti_Shevalekar_002245703_01
+            IMAGE_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
+            echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
+            echo "Built GCP image ID is $IMAGE_ID"
+             
+      - name: Generate version number
+        id: versioning
+        run: echo "VERSION=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Generate updated instance template
+        run: |
+          TEMPLATE_NAME="my-template-${{ env.VERSION }}"
+          gcloud compute instance-templates create $TEMPLATE_NAME 
+          --machine-type=e2-standard-2 
+          --instance-template-region=us-east1 
+          --region=us-east1 
+          --tags=webapp 
+          --image=$IMAGE_ID 
+          --boot-disk-size=40 
+          --boot-disk-type=pd-ssd 
+          --instance-template-region=us-east1
+          --boot-disk-device-name=terraform-instance-template 
+          --network-interface=network=webapp-vpc-2
+          --subnet=webapp-subnet
+          --service-account=logger-sa-assignment06@cloudassignment03-413923.iam.gserviceaccount.com 
+          --scopes=https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/pubsub,https://www.googleapis.com/auth/cloudkms 
+          --boot-disk-kms-key=projects/cloudassignment03-413923/locations/us-east1/keyRings/kms_key2 
+          --metadata startup-script='#!/bin/bash
+          if [ ! -f /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env ]; then
+              sudo echo "HOST=10.87.176.2" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+              sudo echo "PASSWORD=SaX3PX8GzsmioYd9" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+              sudo echo "DB_USERNAME=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+              sudo echo "DATABASE=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+              sudo echo "PORT=3000" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+              fi
+              sudo chown -R csye6225:csye6225 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
+              sudo chmod -R 755 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
+              sudo systemctl restart systemdSetup.service
+              ' --quiet
+
+
+           echo the instance was updated successfully
+
 
  
 

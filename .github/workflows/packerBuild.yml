@@ -78,8 +78,8 @@ jobs:
                 --boot-disk-size=40 
                 --boot-disk-type=pd-ssd 
                 --boot-disk-device-name=terraform-instance-template 
-                --network=csye6225-vpc 
-                --subnet=webapp 
+                --network=vpc
+                --subnet=webapp_subnet 
                 --service-account=logger-sa-assignment06@cloudassignment03-413923.iam.gserviceaccount.com 
                 --scopes=https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/pubsub,https://www.googleapis.com/auth/cloudkms 
                 --no-boot-disk-auto-delete 

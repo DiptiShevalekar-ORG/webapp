@@ -21,16 +21,6 @@ jobs:
                 zip -r webapp.zip .
                 echo $(pwd)
 
-            
-            #  - name: Create env file
-            #    run: |
-            #     touch .env
-            #     echo "PORT=3000" >> .env
-            #     echo "DATABASE=trial_db" >> .env
-            #     echo "DB_USERNAME=root" >> .env
-            #     echo "PASSWORD=Cloud@123" >> .env
-            #     echo "HOST=localhost" >> .env
-          
 
              - name: Install Packer
                run: |
@@ -57,45 +47,41 @@ jobs:
              - name: GET GCP IMAGE ID
                id: get_image_id
                run: |
-                  cd Dipti_Shevalekar_002245703_01
-                  IMAGE_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
-                  echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
-                  echo "Built GCP image ID is $IMAGE_ID"
-                   
+                      cd Dipti_Shevalekar_002245703_01
+                      IMAGE_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
+                      echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
+                      echo "Built GCP image ID is $IMAGE_ID"
+                       
              - name: Generate version number
                id: versioning
                run: echo "VERSION=$(date +%s)" >> $GITHUB_ENV
-
+          
              - name: Generate updated instance template
                run: |
-                TEMPLATE_NAME="my-template-${{ env.VERSION }}"
-                gcloud compute instance-templates create $TEMPLATE_NAME 
-                --machine-type=e2-standard-2 
-                --instance-template-region=us-east1 
-                --region=us-east1 
-                --tags=webapp 
-                --image=$IMAGE_ID 
-                --boot-disk-size=40 
-                --boot-disk-type=pd-ssd 
-                --instance-template-region=us-east1
-                --boot-disk-device-name=terraform-instance-template 
-                --network=webapp-vpc-2
-                --subnet=webapp-subnet
-                --service-account=logger-sa-assignment06@cloudassignment03-413923.iam.gserviceaccount.com 
-                --scopes=https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/pubsub,https://www.googleapis.com/auth/cloudkms 
-                --boot-disk-kms-key=projects/cloudassignment03-413923/locations/us-east1/keyRings/kms_key2 
-                --metadata startup-script='#!/bin/bash
-                if [ ! -f /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env ]; then
-                    sudo echo "HOST=10.87.176.2" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-                    sudo echo "PASSWORD=SaX3PX8GzsmioYd9" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-                    sudo echo "DB_USERNAME=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-                    sudo echo "DATABASE=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-                    sudo echo "PORT=3000" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-                    fi
-                    sudo chown -R csye6225:csye6225 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
-                    sudo chmod -R 755 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
-                    sudo systemctl restart systemdSetup.service
-                    ' --quiet
-
-
-                 echo the instance was updated successfully
+                    TEMPLATE_NAME="my-template-${{ env.VERSION }}"
+                    gcloud compute instance-templates create $TEMPLATE_NAME --project=${{ secrets.WEBAPP_PROJECT_ID }} --network=webapp-vpc-2 --subnet=webapp-subnet --machine-type=${{ secrets.WEBAPP_MACHINE_TYPE }} --instance-template-region=${{ secrets.WEBAPP_REGION }} --region=${{ secrets.WEBAPP_REGION }} --tags=${{ secrets.WEBAPP_TAGS }} --image=$IMAGE_ID --boot-disk-size=${{ secrets.WEBAPP_BOOT_DISK_SIZE }} --boot-disk-type="pd-ssd" --boot-disk-device-name="terraform-instance-template" --service-account="${{ secrets.WEBAPP_SERVICEACCOUNT }}" --scopes="${{ secrets.WEBAPP_SCOPES }}" --boot-disk-kms-key="${{ secrets.WEBAPP_BOOT_DISK_KMS_KEY }}" --metadata startup-script='#!/bin/bash
+                    if [ ! -f /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env ]; then
+                        sudo echo "HOST=${{ secrets.WEBAPP_HOSTT }}" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+                        sudo echo "PASSWORD=${{ secrets.WEBAPP_PASSWORD }}" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+                        sudo echo "DB_USERNAME=${{ secrets.WEBAPP_DB_USERNAME }}" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+                        sudo echo "DATABASE=${{ secrets.WEBAPP_DATABASE }}" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+                        sudo echo "PORT=${{ secrets.WEBAPP_PORT }}" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+                        fi
+                        sudo chown -R csye6225:csye6225 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
+                        sudo chmod -R 755 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
+                        sudo systemctl restart systemdSetup.service
+                        ' --quiet
+          
+          
+             - name: Start Rolling Update
+               run: |
+                          gcloud compute instance-groups managed rolling-action start-update gcp-mig \
+                          --version='template=projects/${{ secrets.WEBAPP_PROJECT_ID }}/regions/${{ secrets.WEBAPP_REGION }}/instanceTemplates/my-template-${{ env.VERSION }}' \
+                          --region="${{ secrets.WEBAPP_REGION }}" \
+                          --project="${{ secrets.WEBAPP_PROJECT_ID }}" \
+                   
+             - name: Wait for refresh to complete
+               run: |
+                          gcloud compute instance-groups managed wait-until gcp-mig \
+                          --version-target-reached \
+                          --region ${{ secrets.WEBAPP_REGION }}

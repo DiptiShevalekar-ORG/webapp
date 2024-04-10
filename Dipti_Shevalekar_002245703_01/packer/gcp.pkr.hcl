@@ -6,6 +6,7 @@ packer {
     }
   }
 }
+//
 source "googlecompute" "Assignment04" {
   project_id   = var.gcp_project_id
   source_image = var.the_source_image

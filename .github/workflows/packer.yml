@@ -114,13 +114,12 @@ jobs:
 
       - name: Update Managed Instance Group
         run: |
-          echo "INSTANCE_GROUP_NAME: $INSTANCE_GROUP_NAME"
-          gcloud compute instance-groups managed set-instance-template $INSTANCE_GROUP_NAME \
-          --template=$TEMPLATE_NAME \
-          --region=us-east1
-        env:
-          INSTANCE_GROUP_NAME: gcp-mig
-          TEMPLATE_NAME: ${{ env.TEMPLATE_NAME }}
+         
+          gcloud compute instance-groups managed set-instance-template \ 
+          gcp-mig \ 
+          --template=projects/cloudassignment03-413923/regions/us-east1/instanceTemplates/$TEMPLATE_NAME \
+       
+          
       
 
            

@@ -115,7 +115,7 @@ jobs:
       - name: Update Managed Instance Group
         run: |
          
-          gcloud compute instance-groups managed set-instance-template gcp-mig --template=$TEMPLATE_NAME 
+          gcloud compute instance-groups managed set-instance-template \ gcp-mig --template=$TEMPLATE_NAME 
        
           
       

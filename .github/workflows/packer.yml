@@ -114,7 +114,7 @@ jobs:
 
       - name: Update Managed Instance Group
         run: |
-            gcloud compute instance-groups managed set-instance-template gcp-mig1 --region=us-east1 --template=projects/cloudassignment03-413923/regions/us-east1/instanceTemplates/$TEMPLATE_NAME --project=cloudassignment03-413923
+            gcloud compute instance-groups managed set-instance-template gcp-mig1 --region=us-east1 --template=projects/cloudassignment03-413923/regions/us-east1/instanceTemplates/my-template-${{ env.VERSION }} --project=cloudassignment03-413923
    
         env:
            TEMPLATE_NAME: ${{ env.TEMPLATE_NAME }}

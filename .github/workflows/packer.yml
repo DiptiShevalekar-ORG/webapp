@@ -98,7 +98,7 @@ jobs:
       - name: Generate updated instance template
         run: |
           TEMPLATE_NAME="my-template-${{ env.VERSION }}"
-          gcloud compute instance-templates create $TEMPLATE_NAME --project=cloudassignment03-413923 --network=webapp-vpc-2 --subnet=webapp-subnet --machine-type=e2-standard-2 --instance-template-region=us-east1 --region=us-east1 --tags=webapp --image="cloud-packer-vm-custom-image" --boot-disk-size=100GB --boot-disk-type="pd-ssd" --instance-template-region="us-east1" --boot-disk-device-name="terraform-instance-template" --service-account="logger-sa-assignment06@cloudassignment03-413923.iam.gserviceaccount.com" --scopes="https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/pubsub,https://www.googleapis.com/auth/cloudkms" --boot-disk-kms-key="projects/cloudassignment03-413923/locations/us-east1/keyRings/kms_key3/cryptoKeys/crypto_sign_key_vm" --metadata startup-script='#!/bin/bash
+          gcloud compute instance-templates create $TEMPLATE_NAME --project=cloudassignment03-413923 --network=webapp-vpc-2 --subnet=webapp-subnet --machine-type=e2-standard-2 --instance-template-region=us-east1 --region=us-east1 --tags=webapp --image="cloud-packer-vm-custom-image" --boot-disk-size=100GB --boot-disk-type="pd-ssd" --instance-template-region="us-east1" --boot-disk-device-name="terraform-instance-template" --service-account="logger-sa-assignment06@cloudassignment03-413923.iam.gserviceaccount.com" --scopes="https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/pubsub,https://www.googleapis.com/auth/cloudkms" --boot-disk-kms-key="projects/cloudassignment03-413923/locations/us-east1/keyRings/kms_key-new/cryptoKeys/crypto_sign_key_vm-new" --metadata startup-script='#!/bin/bash
           if [ ! -f /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env ]; then
               sudo echo "HOST=10.87.176.2" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
               sudo echo "PASSWORD=SaX3PX8GzsmioYd9" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
@@ -114,7 +114,7 @@ jobs:
 
       - name: Update Managed Instance Group
         run: |
-            gcloud compute instance-groups managed set-instance-template gcp-mig1 --region=us-east1 --template=projects/cloudassignment03-413923/regions/us-east1/instanceTemplates/my-template-${{ env.VERSION }} --project=cloudassignment03-413923
+            gcloud compute instance-groups managed set-instance-template gcp-mig --region=us-east1 --template=projects/cloudassignment03-413923/regions/us-east1/instanceTemplates/my-template-${{ env.VERSION }} --project=cloudassignment03-413923
    
         env:
            TEMPLATE_NAME: ${{ env.TEMPLATE_NAME }}
@@ -122,13 +122,13 @@ jobs:
 
       - name: Start Rolling Update
         run: |
-             gcloud compute instance-groups managed rolling-action start-update gcp-mig1 --version=template=projects/cloudassignment03-413923/regions/us-east1/instanceTemplates/my-template-${{ env.VERSION }} --max-surge=5 --region=us-east1 --project=cloudassignment03-413923
+             gcloud compute instance-groups managed rolling-action start-update gcp-mig --version=template=projects/cloudassignment03-413923/regions/us-east1/instanceTemplates/my-template-${{ env.VERSION }} --max-surge=5 --region=us-east1 --project=cloudassignment03-413923
 
 
       - name: Refresh the template
         run: |
                while true; do
-                 STATUS=$(gcloud compute instance-groups managed describe gcp-mig1 \
+                 STATUS=$(gcloud compute instance-groups managed describe gcp-mig \
                    --project="cloudassignment03-413923" \
                    --region="us-east1" \
                    --format="value(currentActions)" \

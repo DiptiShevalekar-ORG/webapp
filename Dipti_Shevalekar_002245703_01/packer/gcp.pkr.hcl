@@ -13,8 +13,8 @@ source "googlecompute" "Assignment04" {
   zone         = var.gcp_project_zone
   network      = "default"
   subnetwork   = "defaul-subnet"
- // image_family = "trial_family"
-  image_name   = "cloud-packer-vm-custom-image"
+  // image_family = "trial_family"
+  image_name = "cloud-packer-vm-custom-image"
 }
 build {
   sources = ["googlecompute.Assignment04"]
@@ -36,7 +36,7 @@ build {
     ]
   }
   post-processor "manifest" {
-    output = "manifest.json"
-    strip_path =true
+    output     = "manifest.json"
+    strip_path = true
   }
 }

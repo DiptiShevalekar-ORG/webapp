@@ -68,34 +68,34 @@ jobs:
 
              - name: Generate updated instance template
                run: |
-                gcloud compute instance-templates create my-template-${{ env.VERSION }} \
-                --project=$PROJECT_ID \
-                --description="$IT_TEMPLATE_DESCRIPTION" \
-                --machine-type="$VIRTUAL_MACHINE_TYPE" \
-                --network-interface="network-tier=PREMIUM,subnet=webapp" \
-                --maintenance-policy="$MAINTENANCE_POLICY" \
-                --service-account="$SERVICE_ACCOUNT" \
-                --scopes="$SCOPES" \
-                --region="$REGION" \
-                --tags="$VM_TAG" \
-                --create-disk="auto-delete=$IT_DISK_AUTO_DELETE,boot=$IT_DISK_BOOT,image=projects/cloudassignment03-413923/global/images/$IMAGE_ID,mode=rw,size=$VIRTUAL_MACHINE_DISK_SIZE_GB,type=$VIRTUAL_MACHINE_DISK_TYPE" \
-                --no-shielded-secure-boot \
-                --shielded-vtpm \
-                --shielded-integrity-monitoring \
-                --reservation-affinity=none
-                env:
-                  PROJECT_ID: ${{secrets.Project_ID}}
-                  IT_TEMPLATE_DESCRIPTION : ${{secrets.IT_TEMPLATE_DESCRIPTION}} 
-                  VIRTUAL_MACHINE_TYPE: ${{secrets.VIRTUAL_MACHINE_TYPE}}
-                  REGION: ${{secrets.REGION}}
-                  MAINTENANCE_POLICY: ${{secrets.MAINTENANCE_POLICY}}
-                  PROVISIONING_MODEL: ${{secrets.PROVISIONING_MODEL}}
-                  SERVICE_ACCOUNT: ${{secrets.SERVICE_ACCOUNT}}
-                  SCOPES: ${{secrets.SCOPES}}
-                  VM_TAG: ${{ secrets.VM_TAG }}
-                  VIRTUAL_MACHINE_IMAGE: ${{secrets.PACKER_BUILD_IMAGE_ID}}
-                  VIRTUAL_MACHINE_DISK_SIZE_GB: ${{ secrets.VIRTUAL_MACHINE_DISK_SIZE_GB }}
-                  VIRTUAL_MACHINE_DISK_TYPE: ${{ secrets.VIRTUAL_MACHINE_DISK_TYPE }}
-                  IT_DISK_AUTO_DELETE: ${{ secrets.IT_DISK_AUTO_DELETE }}
-                  IT_DISK_BOOT: ${{ secrets.IT_DISK_BOOT }}
+                TEMPLATE_NAME="my-template-${{ env.VERSION }}"
+                gcloud compute instance-templates create $TEMPLATE_NAME 
+                --machine-type=e2-standard-2 
+                --instance-template-region=us-east1 
+                --region=us-east1 
+                --tags=webapp 
+                --image=$IMAGE_ID 
+                --boot-disk-size=40 
+                --boot-disk-type=pd-ssd 
+                --boot-disk-device-name=terraform-instance-template 
+                --network=csye6225-vpc 
+                --subnet=webapp 
+                --service-account=logger-sa-assignment06@cloudassignment03-413923.iam.gserviceaccount.com 
+                --scopes=https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/pubsub,https://www.googleapis.com/auth/cloudkms 
+                --no-boot-disk-auto-delete 
+                --boot-disk-kms-key=projects/csye6225-dev-414900/locations/us-east1/keyRings/webapp-key-ring-2/cryptoKeys/crypto-key-vm-2 
+                --metadata startup-script='#!/bin/bash
+                if [ ! -f /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env ]; then
+                    sudo echo "HOST=10.87.176.2" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+                    sudo echo "PASSWORD=SaX3PX8GzsmioYd9" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+                    sudo echo "DB_USERNAME=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+                    sudo echo "DATABASE=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+                    sudo echo "PORT=3000" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+                    fi
+                    sudo chown -R csye6225:csye6225 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
+                    sudo chmod -R 755 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
+                    sudo systemctl restart systemdSetup.service
+                    ' --quiet
+
+
                  echo the instance was updated successfully

@@ -95,25 +95,26 @@ jobs:
         id: versioning
         run: echo "VERSION=$(date +%s)" >> $GITHUB_ENV
 
-      - name: Generate updated instance template
-        run: |
-          TEMPLATE_NAME="my-template-${{ env.VERSION }}"
-          gcloud compute instance-templates create $TEMPLATE_NAME --project=cloudassignment03-413923 --network=webapp-vpc-2 --subnet=webapp-subnet --machine-type=e2-standard-2 --instance-template-region=us-east1 --region=us-east1 --tags=webapp --image="cloud-packer-vm-custom-image" --boot-disk-size=100GB --boot-disk-type="pd-ssd" --instance-template-region="us-east1" --boot-disk-device-name="terraform-instance-template" --service-account="logger-sa-assignment06@cloudassignment03-413923.iam.gserviceaccount.com" --scopes="https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/pubsub,https://www.googleapis.com/auth/cloudkms" --boot-disk-kms-key="projects/cloudassignment03-413923/locations/us-east1/keyRings/kms_key3/cryptoKeys/crypto_sign_key_vm1" --metadata startup-script='#!/bin/bash
-          if [ ! -f /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env ]; then
-              sudo echo "HOST=10.87.176.2" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-              sudo echo "PASSWORD=SaX3PX8GzsmioYd9" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-              sudo echo "DB_USERNAME=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-              sudo echo "DATABASE=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-              sudo echo "PORT=3000" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-              fi
-              sudo chown -R csye6225:csye6225 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
-              sudo chmod -R 755 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
-              sudo systemctl restart systemdSetup.service
-              ' --quiet
+      # - name: Generate updated instance template
+      #   run: |
+      #     TEMPLATE_NAME="my-template-${{ env.VERSION }}"
+      #     gcloud compute instance-templates create $TEMPLATE_NAME --project=cloudassignment03-413923 --network=webapp-vpc-2 --subnet=webapp-subnet --machine-type=e2-standard-2 --instance-template-region=us-east1 --region=us-east1 --tags=webapp --image="cloud-packer-vm-custom-image" --boot-disk-size=100GB --boot-disk-type="pd-ssd" --instance-template-region="us-east1" --boot-disk-device-name="terraform-instance-template" --service-account="logger-sa-assignment06@cloudassignment03-413923.iam.gserviceaccount.com" --scopes="https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/pubsub,https://www.googleapis.com/auth/cloudkms" --boot-disk-kms-key="projects/cloudassignment03-413923/locations/us-east1/keyRings/kms_key3/cryptoKeys/crypto_sign_key_vm1" --metadata startup-script='#!/bin/bash
+      #     if [ ! -f /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env ]; then
+      #         sudo echo "HOST=10.87.176.2" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+      #         sudo echo "PASSWORD=SaX3PX8GzsmioYd9" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+      #         sudo echo "DB_USERNAME=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+      #         sudo echo "DATABASE=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+      #         sudo echo "PORT=3000" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+      #         fi
+      #         sudo chown -R csye6225:csye6225 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
+      #         sudo chmod -R 755 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
+      #         sudo systemctl restart systemdSetup.service
+      #         ' --quiet
 
 
       - name: Update Managed Instance Group
         run: |
+          TEMPLATE_NAME="my-template-${{ env.VERSION }}"
           echo "INSTANCE_GROUP_NAME: $INSTANCE_GROUP_NAME"
           gcloud compute instance-groups managed set-instance-template $INSTANCE_GROUP_NAME \
           --template=$TEMPLATE_NAME \

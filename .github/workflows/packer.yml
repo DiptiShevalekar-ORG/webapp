@@ -114,7 +114,6 @@ jobs:
 
       - name: Update Managed Instance Group
         run: |
-          TEMPLATE_NAME="my-template-${{ env.VERSION }}"
           echo "INSTANCE_GROUP_NAME: $INSTANCE_GROUP_NAME"
           gcloud compute instance-groups managed set-instance-template $INSTANCE_GROUP_NAME \
           --template=$TEMPLATE_NAME \

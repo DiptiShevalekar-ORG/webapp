@@ -111,6 +111,7 @@ jobs:
               sudo systemctl restart systemdSetup.service
               ' --quiet
 
+              
       - name: Update Managed Instance Group
         run: |
                 gcloud compute instance-groups managed set-instance-template gcp-mig \

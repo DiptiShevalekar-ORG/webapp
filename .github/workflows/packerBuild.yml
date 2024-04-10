@@ -69,28 +69,33 @@ jobs:
              - name: Generate updated instance template
                run: |
                 gcloud compute instance-templates create "my-template-${{ env.VERSION }}" \
-                 --image "${{ env.IMAGE_ID }}" \
-                 --machine-type "e2-standard-2" \
-                 --region "us-east1" \
-                 --tags "webapp" \
-                 --disk "name=csye-ci-disk,boot=yes,auto-delete=yes" \
-                 --boot-disk-size "40GB" \
-                 --boot-disk-type "pd-ssd" \
-                 --network-interface "vpc,webapp_subnet" \
-                 --service-account "email=logger-sa-assignment06@cloudassignment03-413923.iam.gserviceaccount.com,scopes=cloud-platform,pubsub" \
-                 --lifecycle "create-before-destroy"
-                 --metadata "startup-script=$(cat <<EOF
-                      #!/bin/bash
-                      sudo bash -c 'cat <<EOF > /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-                      DB_USERNAME="webapp"
-                      DATABASE="csye6225"
-                      PASSWORD="rH7IsHSIPTDa4mZX"
-                      HOST="10.0.160.2"
-                      PORT=3000
-                      EOF'
-                      sudo chown -R csye6225:csye6225 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
-                      sudo chmod -R 755 opt/webappUnzipped/Dipti_Shevalekar_002245703_01
-                      sudo systemctl restart systemdSetup.service
-                      EOF
-                      )" \
+                --project=$PROJECT_ID \
+                --description="$IT_TEMPLATE_DESCRIPTION" \
+                --machine-type="$VIRTUAL_MACHINE_TYPE" \
+                --network-interface="network-tier=PREMIUM,subnet=webapp" \
+                --maintenance-policy="$MAINTENANCE_POLICY" \
+                --service-account="$SERVICE_ACCOUNT" \
+                --scopes="$SCOPES" \
+                --region="$REGION" \
+                --tags="$VM_TAG" \
+                --create-disk="auto-delete=$IT_DISK_AUTO_DELETE,boot=$IT_DISK_BOOT,image=projects/cloudassignment03-413923/global/images/$IMAGE_ID,mode=rw,size=$VIRTUAL_MACHINE_DISK_SIZE_GB,type=$VIRTUAL_MACHINE_DISK_TYPE" \
+                --no-shielded-secure-boot \
+                --shielded-vtpm \
+                --shielded-integrity-monitoring \
+                --reservation-affinity=none
+                env:
+                  PROJECT_ID: ${{secrets.Project_ID}}
+                  IT_TEMPLATE_DESCRIPTION : ${{secrets.IT_TEMPLATE_DESCRIPTION}} 
+                  VIRTUAL_MACHINE_TYPE: ${{secrets.VIRTUAL_MACHINE_TYPE}}
+                  REGION: ${{secrets.REGION}}
+                  MAINTENANCE_POLICY: ${{secrets.MAINTENANCE_POLICY}}
+                  PROVISIONING_MODEL: ${{secrets.PROVISIONING_MODEL}}
+                  SERVICE_ACCOUNT: ${{secrets.SERVICE_ACCOUNT}}
+                  SCOPES: ${{secrets.SCOPES}}
+                  VM_TAG: ${{ secrets.VM_TAG }}
+                  VIRTUAL_MACHINE_IMAGE: ${{secrets.PACKER_BUILD_IMAGE_ID}}
+                  VIRTUAL_MACHINE_DISK_SIZE_GB: ${{ secrets.VIRTUAL_MACHINE_DISK_SIZE_GB }}
+                  VIRTUAL_MACHINE_DISK_TYPE: ${{ secrets.VIRTUAL_MACHINE_DISK_TYPE }}
+                  IT_DISK_AUTO_DELETE: ${{ secrets.IT_DISK_AUTO_DELETE }}
+                  IT_DISK_BOOT: ${{ secrets.IT_DISK_BOOT }}
                  echo the instance was updated successfully

@@ -14,8 +14,8 @@ source "googlecompute" "Assignment04" {
   network      = "default"
   subnetwork   = "defaul-subnet"
   image_family = "trial-image-family"
-  image_name = "cloud-packer-vm-custom-image-${formatdate("YYYY-MM-DD-hh-mm-ss", timestamp())}"
- 
+  image_name   = "cloud-packer-vm-custom-image-${formatdate("YYYY-MM-DD-hh-mm-ss", timestamp())}"
+
 }
 build {
   sources = ["googlecompute.Assignment04"]

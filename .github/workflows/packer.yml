@@ -127,7 +127,6 @@ jobs:
               sudo systemctl restart systemdSetup.service
               ' --quiet
 
-
            echo the instance was updated successfully
 
 

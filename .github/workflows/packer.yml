@@ -67,11 +67,11 @@ jobs:
         with:
                 credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      # - name: Build Packer Image
-      #   id: packer_build
-      #   run: |
-      #       cd Dipti_Shevalekar_002245703_01
-      #       packer build packer
+      - name: Build Packer Image
+        id: packer_build
+        run: |
+            cd Dipti_Shevalekar_002245703_01
+            packer build packer
 
       - name: GET GCP IMAGE ID
         id: get_image_id
@@ -88,10 +88,10 @@ jobs:
       - name: Generate updated instance template
         run: |
           TEMPLATE_NAME="my-template-${{ env.VERSION }}"
-          gcloud compute instance-templates create $TEMPLATE_NAME --project=${{ secrets.WEBAPP_PROJECT_ID }} --network=webapp-vpc-2 --subnet=webapp-subnet --machine-type=e2-standard-2 --instance-template-region=us-east1 --region=us-east1 --tags=webapp --image="cloud-packer-vm-custom-image-2024-04-10-20-31-44" --boot-disk-size=20GB --boot-disk-type="pd-ssd" --instance-template-region="us-east1" --boot-disk-device-name="terraform-instance-template" --service-account="logger-sa-assignment06@cloudassignment03-413923.iam.gserviceaccount.com" --scopes="https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/pubsub,https://www.googleapis.com/auth/cloudkms" --boot-disk-kms-key="projects/cloudassignment03-413923/locations/us-east1/keyRings/kms_key-new2/cryptoKeys/crypto_sign_key_vm-new2" --metadata startup-script='#!/bin/bash
+          gcloud compute instance-templates create $TEMPLATE_NAME --project=${{ secrets.WEBAPP_PROJECT_ID }} --network=webapp-vpc-2 --subnet=webapp-subnet --machine-type=e2-standard-2 --instance-template-region=us-east1 --region=us-east1 --tags=webapp --image=$IMAGE_ID --boot-disk-size=20GB --boot-disk-type="pd-ssd" --instance-template-region="us-east1" --boot-disk-device-name="terraform-instance-template" --service-account="logger-sa-assignment06@cloudassignment03-413923.iam.gserviceaccount.com" --scopes="https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/pubsub,https://www.googleapis.com/auth/cloudkms" --boot-disk-kms-key="projects/cloudassignment03-413923/locations/us-east1/keyRings/kms_key-new3/cryptoKeys/crypto_sign_key_vm-new3" --metadata startup-script='#!/bin/bash
           if [ ! -f /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env ]; then
-              sudo echo "HOST=10.200.224.2" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
-              sudo echo "PASSWORD=5DS4kSwODYUaWzvK" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+              sudo echo "HOST=10.67.160.2" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+              sudo echo "PASSWORD=6s640rkqqodSia60" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
               sudo echo "DB_USERNAME=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
               sudo echo "DATABASE=webapp" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
               sudo echo "PORT=3000" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env

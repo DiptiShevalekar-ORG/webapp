@@ -72,9 +72,9 @@ jobs:
          cd Dipti_Shevalekar_002245703_01
          packer validate packer
 
-         - name: Build Packer Image
-         id: packer_build
-         run: |
+      - name: Build Packer Image
+        id: packer_build
+        run: |
             cd Dipti_Shevalekar_002245703_01
             packer build -except=manifest packer
 

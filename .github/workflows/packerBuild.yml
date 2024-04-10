@@ -68,7 +68,7 @@ jobs:
 
              - name: Generate updated instance template
                run: |
-                gcloud compute instance-templates create "my-template-${{ env.VERSION }}" \
+                gcloud compute instance-templates create my-template-${{ env.VERSION }} \
                 --project=$PROJECT_ID \
                 --description="$IT_TEMPLATE_DESCRIPTION" \
                 --machine-type="$VIRTUAL_MACHINE_TYPE" \

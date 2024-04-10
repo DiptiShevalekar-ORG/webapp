@@ -123,3 +123,21 @@ jobs:
       - name: Start Rolling Update
         run: |
              gcloud compute instance-groups managed rolling-action start-update gcp-mig1 --version=template=projects/cloudassignment03-413923/regions/us-east1/instanceTemplates/my-template-${{ env.VERSION }} --max-surge=5 --region=us-east1 --project=cloudassignment03-413923
+
+
+      - name: Refresh the template
+        run: |
+               while true; do
+                 STATUS=$(gcloud compute instance-groups managed describe gcp-mig1 \
+                   --project="cloudassignment03-413923" \
+                   --region="us-east1" \
+                   --format="value(currentActions)" \
+                   | grep -c 'none')
+                 if [ "$STATUS" == "1" ]; then
+                   echo "Instance group update completed."
+                   break
+                 else
+                   echo "Instance group still updating..."
+                   sleep 10
+                 fi
+                 done

@@ -90,7 +90,7 @@ jobs:
           TEMPLATE_NAME="my-template-${{ env.VERSION }}"
           gcloud compute instance-templates create $TEMPLATE_NAME --project=${{ secrets.WEBAPP_PROJECT_ID }} --network=webapp-vpc-2 --subnet=webapp-subnet --machine-type=${{ secrets.WEBAPP_MACHINE_TYPE }} --instance-template-region=${{ secrets.WEBAPP_REGION }} --region=${{ secrets.WEBAPP_REGION }} --tags=${{ secrets.WEBAPP_TAGS }} --image=$IMAGE_ID --boot-disk-size=${{ secrets.WEBAPP_BOOT_DISK_SIZE }} --boot-disk-type="pd-ssd" --boot-disk-device-name="terraform-instance-template" --service-account="${{ secrets.WEBAPP_SERVICEACCOUNT }}" --scopes="${{ secrets.WEBAPP_SCOPES }}" --boot-disk-kms-key="${{ secrets.WEBAPP_BOOT_DISK_KMS_KEY }}" --metadata startup-script='#!/bin/bash
           if [ ! -f /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env ]; then
-              sudo echo "HOST=${{ secrets.WEBAPP_HOSTT }}" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
+              sudo echo "HOST=${{ secrets.WEBAPP_HOST }}" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
               sudo echo "PASSWORD=${{ secrets.WEBAPP_PASSWORD }}" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
               sudo echo "DB_USERNAME=${{ secrets.WEBAPP_DB_USERNAME }}" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env
               sudo echo "DATABASE=${{ secrets.WEBAPP_DATABASE }}" | sudo tee -a /opt/webappUnzipped/Dipti_Shevalekar_002245703_01/.env

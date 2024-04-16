@@ -47,7 +47,7 @@ app.use(async(req,res, next) =>{
 
     }
 })
-
+//
 app.use(async(req,res,next)=>{
    if( (Object.keys(req.query).length !== 0 || Object.keys(req.params).length !== 0) && !req.originalUrl.includes("v2/user/verifyaccount")){
        res.status(400).end()

@@ -24,14 +24,14 @@ describe("User API Integration Tests", () => {
 describe("User API Integration Tests", () => {
   it("Post - User Create", async () => {
    // console.log("Reached Here");
-    await request.post("/v1/user").send(testData.userData).expect(201);
+    await request.post("/v2/user").send(testData.userData).expect(201);
     //     const token = Buffer.from(
     //       `${testData.userData.UserName}:${testData.userData.Password}`
     //     ).toString("base64");
     //     console.log("This is token  : " + token);
 
     await request
-      .get("/v1/user/self")
+      .get("/v2/user/self")
       .set(
         `Authorization`,
         `Basic ${Buffer.from(
@@ -47,7 +47,7 @@ describe("Put - Update USer", () => {
   it("Put - User Update", async () => {
     //console.log("Reached in put");
     await request
-      .put("/v1/user/self")
+      .put("/v2/user/self")
       .set(
         `Authorization`,
         `Basic ${Buffer.from(
@@ -58,7 +58,7 @@ describe("Put - Update USer", () => {
       .expect(204);
 
     request
-      .get("/v1/user/self")
+      .get("/v2/user/self")
       .set(
         `Authorization`,
         `Basic ${Buffer.from(

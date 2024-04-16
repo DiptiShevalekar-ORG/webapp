@@ -49,7 +49,7 @@ app.use(async(req,res, next) =>{
 })
 //
 app.use(async(req,res,next)=>{
-   if( (Object.keys(req.query).length !== 0 || Object.keys(req.params).length !== 0) && !req.originalUrl.includes("v1/user/verifyaccount")){
+   if( (Object.keys(req.query).length !== 0 || Object.keys(req.params).length !== 0) && !req.originalUrl.includes("v2/user/verifyaccount")){
        res.status(400).end()
    }else{
        next()
@@ -58,7 +58,7 @@ app.use(async(req,res,next)=>{
 
 app.use('/healthz', routes);
 //app.use('/user/self', userRoutes);
-app.use('/v1/user', userRoutes);
+app.use('/v2/user', userRoutes);
 
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.raw({limit: '50mb', type: () => true}));
